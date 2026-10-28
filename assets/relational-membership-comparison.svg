@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">How a provider set changes over time</title>
+  <desc id="desc">The same residential cell is followed at two time points. Hard assignment selects provider A at both times and appears unchanged. Relational membership retains affiliations with A and B at the first time and A, B, and C at the second, revealing change in the broader provider set.</desc>
+  <defs>
+    <style>
+      .ink{fill:#203b33;font-family:Arial,Helvetica,sans-serif}
+      .title{font-size:31px;font-weight:600}
+      .rowhead{font-size:23px;font-weight:700}
+      .sub{font-size:17px}
+      .time{font-size:20px;font-weight:700;letter-spacing:1px}
+      .provider{font-size:25px;font-weight:700;text-anchor:middle;dominant-baseline:middle}
+      .note{font-size:20px;font-weight:600}
+    </style>
+  </defs>
+  <rect width="1000" height="620" fill="#e9eee5"/>
+  <text class="ink title" x="36" y="55">Track one residential place as its providers change</text>
+
+  <text class="ink time" x="320" y="112" text-anchor="middle">t₀</text>
+  <text class="ink time" x="760" y="112" text-anchor="middle">t₁</text>
+  <text class="ink sub" x="320" y="142" text-anchor="middle">same residential support</text>
+  <text class="ink sub" x="760" y="142" text-anchor="middle">same residential support</text>
+  <line x1="36" y1="160" x2="964" y2="160" stroke="#c5d1c5" stroke-width="2"/>
+
+  <text class="ink rowhead" x="38" y="211">Hard</text>
+  <text class="ink rowhead" x="38" y="239">assignment</text>
+  <text class="ink sub" x="38" y="268">one recorded link</text>
+
+  <rect x="255" y="188" width="112" height="90" rx="2" fill="#f8f6ef" stroke="#668276" stroke-width="3"/>
+  <path d="M292.3 188v90 M329.7 188v90 M255 218h112 M255 248h112" stroke="#c4d0c5" stroke-width="1.5"/>
+  <line x1="367" y1="233" x2="490" y2="233" stroke="#527767" stroke-width="4"/>
+  <circle cx="520" cy="233" r="27" fill="#dfbb7c" stroke="#9e773d" stroke-width="2"/>
+  <text class="ink provider" x="520" y="233">A</text>
+
+  <rect x="695" y="188" width="112" height="90" rx="2" fill="#f8f6ef" stroke="#668276" stroke-width="3"/>
+  <path d="M732.3 188v90 M769.7 188v90 M695 218h112 M695 248h112" stroke="#c4d0c5" stroke-width="1.5"/>
+  <line x1="807" y1="233" x2="870" y2="233" stroke="#527767" stroke-width="4"/>
+  <circle cx="900" cy="233" r="27" fill="#dfbb7c" stroke="#9e773d" stroke-width="2"/>
+  <text class="ink provider" x="900" y="233">A</text>
+
+  <line x1="36" y1="315" x2="964" y2="315" stroke="#c5d1c5" stroke-width="2" stroke-dasharray="5 7"/>
+
+  <text class="ink rowhead" x="38" y="369">Relational</text>
+  <text class="ink rowhead" x="38" y="397">membership</text>
+  <text class="ink sub" x="38" y="426">provider links retained</text>
+
+  <rect x="255" y="345" width="112" height="90" rx="2" fill="#f8f6ef" stroke="#668276" stroke-width="3"/>
+  <path d="M292.3 345v90 M329.7 345v90 M255 375h112 M255 405h112" stroke="#c4d0c5" stroke-width="1.5"/>
+  <line x1="367" y1="390" x2="484" y2="370" stroke="#527767" stroke-width="4"/>
+  <line x1="367" y1="390" x2="484" y2="410" stroke="#527767" stroke-width="4"/>
+  <circle cx="510" cy="365" r="25" fill="#dfbb7c" stroke="#9e773d" stroke-width="2"/>
+  <circle cx="510" cy="415" r="25" fill="#d9e3d7" stroke="#668276" stroke-width="2"/>
+  <text class="ink provider" x="510" y="365">A</text>
+  <text class="ink provider" x="510" y="415">B</text>
+
+  <rect x="695" y="345" width="112" height="90" rx="2" fill="#f8f6ef" stroke="#668276" stroke-width="3"/>
+  <path d="M732.3 345v90 M769.7 345v90 M695 375h112 M695 405h112" stroke="#c4d0c5" stroke-width="1.5"/>
+  <line x1="807" y1="390" x2="864" y2="350" stroke="#527767" stroke-width="4"/>
+  <line x1="807" y1="390" x2="864" y2="390" stroke="#527767" stroke-width="4"/>
+  <line x1="807" y1="390" x2="864" y2="430" stroke="#527767" stroke-width="4"/>
+  <circle cx="890" cy="345" r="24" fill="#dfbb7c" stroke="#9e773d" stroke-width="2"/>
+  <circle cx="890" cy="390" r="24" fill="#d9e3d7" stroke="#668276" stroke-width="2"/>
+  <circle cx="890" cy="435" r="24" fill="#f0dfbd" stroke="#b98b4d" stroke-width="2"/>
+  <text class="ink provider" x="890" y="345">A</text>
+  <text class="ink provider" x="890" y="390">B</text>
+  <text class="ink provider" x="890" y="435">C</text>
+
+  <line x1="36" y1="482" x2="964" y2="482" stroke="#c5d1c5" stroke-width="2"/>
+  <text class="ink note" x="500" y="530" text-anchor="middle">Hard assignment appears unchanged; the relational provider set shifts.</text>
+  <text class="ink sub" x="500" y="563" text-anchor="middle">Illustrative relationships on a fixed spatial support</text>
+</svg>

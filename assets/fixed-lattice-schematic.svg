@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+<title id="title">A fixed residential lattice with changing providers</title>
+<desc id="desc">Two schematic panels use the same grid of residential blocks. The provider markers differ between panels, illustrating how locations and service capacity can change while the spatial support remains fixed.</desc>
+<rect width="900" height="390" fill="#fff"/>
+<text x="52" y="42" fill="#27333a" font-family="DM Sans,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="2">SAME RESIDENTIAL SUPPORT</text>
+<text x="58" y="91" fill="#27333a" font-family="Newsreader,Georgia,serif" font-size="24">Provider configuration A</text>
+<text x="478" y="91" fill="#27333a" font-family="Newsreader,Georgia,serif" font-size="24">Provider configuration B</text>
+<g transform="translate(60 120)">
+  <rect width="336" height="210" fill="#f5f6f4" stroke="#cbd2d1"/>
+  <path d="M56 0v210M112 0v210M168 0v210M224 0v210M280 0v210M0 42h336M0 84h336M0 126h336M0 168h336" stroke="#cbd2d1" stroke-width="1"/>
+  <circle cx="84" cy="63" r="10" fill="#9f3038"/><text x="99" y="68" fill="#27333a" font-family="DM Sans,Arial,sans-serif" font-size="13" font-weight="700">A</text>
+  <circle cx="252" cy="147" r="10" fill="#9f3038"/><text x="267" y="152" fill="#27333a" font-family="DM Sans,Arial,sans-serif" font-size="13" font-weight="700">B</text>
+</g>
+<g transform="translate(480 120)">
+  <rect width="336" height="210" fill="#f5f6f4" stroke="#cbd2d1"/>
+  <path d="M56 0v210M112 0v210M168 0v210M224 0v210M280 0v210M0 42h336M0 84h336M0 126h336M0 168h336" stroke="#cbd2d1" stroke-width="1"/>
+  <circle cx="140" cy="105" r="10" fill="#9f3038"/><text x="155" y="110" fill="#27333a" font-family="DM Sans,Arial,sans-serif" font-size="13" font-weight="700">A</text>
+  <circle cx="280" cy="63" r="10" fill="#9f3038"/><text x="295" y="68" fill="#27333a" font-family="DM Sans,Arial,sans-serif" font-size="13" font-weight="700">C</text>
+</g>
+<text x="60" y="365" fill="#68767b" font-family="DM Sans,Arial,sans-serif" font-size="12">Conceptual schematic · grid cells represent residential places; markers represent service providers</text>
+</svg>

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Supplementary Gifted Education Finance Analysis · Robyn H. Gausman-Burnett</title>
+<meta name="description" content="An interactive supplement to the Center for Educational Progress state gifted-education regulations map, examining separately reported state gifted aid, FY2014–2024.">
+<meta name="theme-color" content="#173d37">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gifted Education Finance · Supplementary Analysis">
+<meta property="og:description" content="Separately reported state gifted aid, reporting gaps, and state-level trends in U.S. Census F-33 data.">
+<meta property="og:image" content="assets/og-card.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap">
+<style>
+@font-face { font-family: 'Brand'; src: url('assets/Brand.woff') format('woff'); font-style: normal; font-weight: 400; font-display: swap; }
+:root {
+  --bg: #fffcf6;
+  --surface: #f8f6ef;
+  --surface2: #f3f2e9;
+  --border: #d9ded4;
+  --gold: #d6a65e;
+  --gold-dim: #a67945;
+  --blue-soft: #557c71;
+  --zero: #9aab9f;
+  --missing: #e5e8e1;
+  --text: #243732;
+  --text-dim: #62716b;
+  --text-muted: #87958c;
+  --accent: #d6a65e;
+  --positive: #d6a65e;
+  --negative: #b84f49;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ---- Nav ---- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 2rem;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  padding: 1rem 1.5rem 1rem 0;
+  border-right: 1px solid var(--border);
+  margin-right: 1rem;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.nav-monogram { display:inline-grid;place-items:center;width:42px;height:34px;background:#173d37;color:#fffcf6;border-bottom:3px solid var(--gold);font:400 0.82rem 'Brand',Georgia,serif;letter-spacing:-0.12em;padding-right:0.12em; }
+.nav-source a { display:inline-block;color:var(--gold-dim);text-decoration:none;font-weight:600;margin-bottom:0.25rem; }
+.nav-source a:hover { text-decoration:underline; }
+.supplement-note { background:var(--surface2);border-left:3px solid var(--gold);padding:0.9rem 1.1rem;margin:0 0 1.6rem;font-size:0.82rem;color:var(--text-dim);line-height:1.6; }
+.supplement-note strong { color:var(--text); }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  padding: 1rem 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-source {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+  text-align: right;
+}
+@media (max-width: 1180px) {
+  nav {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 0 1rem;
+  }
+  .nav-logo { grid-column: 1; grid-row: 1; border-right: 0; margin: 0; }
+  .nav-source { grid-column: 2; grid-row: 1; margin: 0; }
+  .nav-tabs {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    overflow-x: auto;
+    min-width: 0;
+    scrollbar-width: thin;
+    border-top: 1px solid var(--border);
+  }
+  .nav-tab { padding: 0.75rem 1rem; }
+}
+
+/* ---- Sections ---- */
+.section { display: none; padding: 2.5rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+.section.active { display: block; }
+
+/* ---- Overview ---- */
+.overview-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+.stat-cell {
+  background: var(--surface);
+  padding: 2rem 1.8rem;
+}
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 400;
+  line-height: 1.4;
+}
+.stat-sub {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.section-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.caution-box {
+  background: var(--surface2);
+  border-left: 3px solid var(--gold-dim);
+  border-radius: 0 4px 4px 0;
+  padding: 1rem 1.2rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+.caution-box strong { color: var(--text); }
+
+/* ---- Trend chart ---- */
+.chart-area {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  min-width: 0;
+}
+#trend-svg { display: block; width: 100%; max-width: 100%; overflow: hidden; }
+.chart-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2rem;
+}
+svg text { font-family: 'Inter', sans-serif; }
+
+/* ---- Map ---- */
+.map-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.map-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.map-controls label { font-size: 0.8rem; color: var(--text-dim); }
+.year-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 200px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+.year-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+}
+.year-display {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  min-width: 3rem;
+}
+.map-legend {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.8rem 1.2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 0.4rem; }
+.legend-swatch {
+  width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+}
+.legend-swatch.funding-scale { width: 72px; }
+#us-map-svg { width: 100%; display: block; }
+.state-path { transition: opacity 0.2s; cursor: pointer; }
+.state-path:hover { opacity: 0.8; }
+.state-tooltip {
+  position: fixed;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.78rem;
+  pointer-events: none;
+  z-index: 200;
+  display: none;
+  min-width: 160px;
+}
+.state-tooltip .tt-name { font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+.state-tooltip .tt-val { color: var(--gold); font-size: 0.85rem; }
+.state-tooltip .tt-status { color: var(--text-muted); font-size: 0.72rem; }
+
+/* ---- State table ---- */
+.state-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.state-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  padding: 0.65rem 1.2rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.state-table-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  padding: 0.6rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  transition: background 0.1s;
+}
+.state-table-row:last-child { border-bottom: none; }
+.state-table-row:hover { background: var(--surface2); }
+.state-table-row .state-name { color: var(--text); font-weight: 500; }
+.state-table-row .val-positive { color: var(--gold-dim); font-weight: 600; }
+.state-table-row .val-zero { color: var(--text-dim); }
+.state-table-row .val-missing { color: var(--text-muted); font-style: italic; }
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.badge-positive { background: #f3e7d2; color: #795423; }
+.badge-zero { background: #e4ece6; color: #3e6256; }
+.badge-missing { background: #edf0ec; color: #63736a; }
+
+/* ---- Trends tab ---- */
+.sparkline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.sparkline-cell {
+  background: var(--surface);
+  padding: 1rem 1.2rem;
+}
+.sparkline-cell .sc-name { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
+.sparkline-cell .sc-latest { font-size: 1.15rem; font-family: 'DM Serif Display', serif; color: var(--gold); }
+.sparkline-cell .sc-change { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.sparkline-cell svg { display: block; width: 100%; }
+
+/* ---- Coverage tab ---- */
+.coverage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.coverage-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+}
+.coverage-bar-row .yr { color: var(--text-dim); width: 2.5rem; flex-shrink: 0; }
+.bar-track { flex: 1; height: 20px; background: var(--surface2); border-radius: 2px; overflow: hidden; display: flex; }
+.bar-seg { height: 100%; transition: width 0.3s; }
+.bar-pos { background: var(--gold); }
+.bar-zero { background: var(--zero); }
+.bar-miss { background: var(--missing); border-left: 1px solid var(--border); }
+.bar-val { min-width: 2rem; color: var(--text-dim); font-size: 0.72rem; text-align: right; }
+
+/* ---- Key Takeaways ---- */
+.takeaway-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.takeaway-card {
+  background: var(--surface);
+  padding: 1.8rem;
+}
+.takeaway-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.6rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.takeaway-headline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+.takeaway-body {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.wi-callout {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2rem;
+}
+.wi-callout .wi-flag { font-size: 1.1rem; margin-bottom: 0.3rem; }
+.wi-callout strong { color: var(--text); font-size: 0.88rem; }
+.wi-callout p { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.3rem; line-height: 1.6; }
+
+/* ---- State Lookup ---- */
+.lookup-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.lookup-search {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+}
+.lookup-input {
+  flex: 1;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.55rem 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+}
+.lookup-input:focus { border-color: var(--gold); }
+.lookup-input::placeholder { color: var(--text-muted); }
+.lookup-suggestions {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  z-index: 50;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 300px;
+  display: none;
+}
+.lookup-sugg-item {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--text-dim);
+}
+.lookup-sugg-item:hover { background: var(--surface2); color: var(--text); }
+.lookup-result { padding: 1.5rem; }
+.lookup-state-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.lookup-status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.lookup-trend-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-end;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+.lookup-year-col { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+.lookup-bar-wrap { width: 28px; height: 80px; display: flex; align-items: flex-end; justify-content: center; }
+.lookup-bar {
+  width: 20px;
+  border-radius: 2px 2px 0 0;
+  transition: background 0.2s;
+}
+.lookup-yr-label { font-size: 0.62rem; color: var(--text-muted); }
+.lookup-note { font-size: 0.8rem; color: var(--text-dim); line-height: 1.6; }
+.lookup-empty { padding: 2rem 1.5rem; color: var(--text-muted); font-size: 0.88rem; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .takeaway-grid { grid-template-columns: 1fr; }
+
+  .overview-hero { grid-template-columns: 1fr; }
+  .coverage-grid { grid-template-columns: 1fr; }
+  .state-table-header, .state-table-row { grid-template-columns: 2fr 1.5fr 1fr; }
+  .state-table-header div:nth-child(3), .state-table-row div:nth-child(3) { display: none; }
+  nav { padding: 0 0.8rem; }
+  .nav-source { max-width: 145px; font-size: 0.65rem; }
+  .nav-source br { display: none; }
+  .nav-source a { margin: 0; }
+  .nav-logo { padding: 0.7rem 0; font-size: 0.9rem; }
+  .nav-tab { font-size: 0.78rem; }
+  .section { padding: 1.5rem 1rem 3rem; }
+}
+.state-year-figure{margin:0 auto 2.5rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;max-width:800px;min-width:0}.state-year-figure img{display:block;width:100%;max-width:100%;height:auto}.state-year-figure figcaption{padding:0.8rem 0.2rem 0;color:var(--text-dim);font-size:0.76rem;line-height:1.55}.state-year-figure figcaption a{color:var(--gold-dim);font-weight:600}</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span class="nav-monogram">RGB</span><span>Gifted Finance</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('takeaways')">Key Takeaways</button>
+    <button class="nav-tab" onclick="showTab('overview')">Overview</button>
+    <button class="nav-tab" onclick="showTab('map')">State Map</button>
+    <button class="nav-tab" onclick="showTab('trends')">State Trends</button>
+    <button class="nav-tab" onclick="showTab('coverage')">Coverage</button>
+    <button class="nav-tab" onclick="showTab('lookup')">Your State</button>
+  </div>
+  <div class="nav-source"><a href="index.html#projects">← Robyn H. Gausman-Burnett</a><br>U.S. Census Bureau<br>F-33 · supplementary analysis · FY2014–2024</div>
+</nav>
+
+<div class="state-tooltip" id="tooltip">
+  <div class="tt-name" id="tt-name"></div>
+  <div class="tt-val" id="tt-val"></div>
+  <div class="tt-status" id="tt-status"></div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<section class="section active" id="tab-takeaways">
+  <h2 class="section-heading" style="margin-bottom:0.5rem;">What the data show</h2>
+  <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1.8rem;">School-system reports of state-source gifted education revenue, aggregated by state · FY2014–2024 · U.S. Census Bureau Annual Survey of School System Finances</p>
+  <div class="supplement-note"><strong>How this relates to my CEP work:</strong> This finance analysis is a supplement for NAGC. It complements my work on the Center for Educational Progress’s State Gifted-Education Regulations map, which remains the primary CEP project.</div>
+  <div class="takeaway-grid">
+    <div class="takeaway-card">
+      <div class="takeaway-num">$1.62B</div>
+      <div class="takeaway-headline">Reported in FY2024 — a ten-year high</div>
+      <div class="takeaway-body">The sum of separately identified state gifted aid grew 59% in nominal terms from $1.02B in FY2014, reaching its highest point in FY2024. After a brief dip during the pandemic years (2021–2022), funding has rebounded sharply.</div>
+    </div>
+    <div class="takeaway-card">
+      <div class="takeaway-num">18 / 51</div>
+      <div class="takeaway-headline">States with any positive reported aid in FY2024</div>
+      <div class="takeaway-body">Only 18 of 51 jurisdictions separately report any gifted-specific state revenue. 21 report zero, and 12 have no usable data at all. The number has been remarkably stable — between 16 and 19 — across the entire decade.</div>
+    </div>
+    <div class="takeaway-card">
+      <div class="takeaway-num">87%</div>
+      <div class="takeaway-headline">Held by just two states: Georgia and Florida</div>
+      <div class="takeaway-body">Georgia ($795M) and Florida ($611M) together account for 87% of all reported gifted aid nationally. The remaining 16 positive states share just $214M — meaning the "national" picture is really two outliers and a long tail.</div>
+    </div>
+    <div class="takeaway-card">
+      <div class="takeaway-num">⚠</div>
+      <div class="takeaway-headline">These figures are a floor, not a ceiling</div>
+      <div class="takeaway-body">This measure aggregates school-system survey records for state-source dollars <em>separately identified</em> as gifted funding. It is not a direct census of state agency spending: funding routed through general aid, local levies, or federal grants may not appear here. Zero and missing do not establish that services are absent, and missing records can coexist with substantial funding reported through other channels.</div>
+    </div>
+  </div>
+  <div class="caution-box" style="margin-bottom:0;">
+    <strong>Source:</strong> U.S. Census Bureau, Annual Survey of School System Finances (F-33). Item C08, defined in the Census documentation as state revenue for <em>"Gifted and talented programs."</em> FY2014–FY2024, nominal dollars, not inflation-adjusted.
+    <br><br>
+    Amounts come from each year's individual-unit data file; reporting status comes from the matching flag file (FL_C08: R = reported, M = missing), joined on STATE, PID6, and UNIT_TYPE. Raw zeros in M-flagged cells are treated as missing, not as zero funding. FY2023 and FY2024 verified directly against the official flag files <em>elsec23f</em> and <em>elsec24f</em>: 14,088 and 14,077 school-system records respectively, with 9,169 and 10,262 reported.
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="section" id="tab-overview">
+  <div class="overview-hero">
+    <div class="stat-cell">
+      <div class="stat-num">$1.62B</div>
+      <div class="stat-label">Total separately reported state gifted aid, FY2024</div>
+      <div class="stat-sub">Up 59% nominally from $1.02B in FY2014</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">18</div>
+      <div class="stat-label">States with any positive separately reported gifted aid in FY2024</div>
+      <div class="stat-sub">12 states missing all records · 21 reporting zero</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">87%</div>
+      <div class="stat-label">Share of FY2024 total held by Georgia &amp; Florida alone</div>
+      <div class="stat-sub">GA $795M · FL $611M · all others $214M combined</div>
+    </div>
+  </div>
+
+  <div class="caution-box">
+    <strong>What you're looking at:</strong>
+    These figures aggregate school-system records from the U.S. Census Bureau's annual finance survey. They capture state-source revenue that school systems <em>separately report</em> for gifted and talented programs; they are not state agency reports or a complete census of state spending.
+    They don't include general aid that flows to gifted services, or local funding.
+    A state showing zero or no data doesn't necessarily mean it provides nothing — it may fund gifted education through its general formula instead.
+    Dollar amounts are nominal (not adjusted for inflation). Year-to-year changes can reflect policy, reporting practices, or how a state classifies its spending.
+  </div>
+
+  <figure class="state-year-figure"><a href="assets/finance-figures/01_all_states_2014_2024_high_green.svg" target="_blank" rel="noopener"><img src="assets/finance-figures/01_all_states_2014_2024_high_green.svg" alt="State-by-year heatmap of separately reported gifted education aid in nominal millions, FY2014–2024. Lower positive amounts are yellow and higher amounts are green; M marks missing reports."></a><figcaption>State-by-year reports · nominal millions. Yellow shows lower positive amounts; green shows higher amounts. M indicates a missing report; zero and missing are distinct. <a href="assets/finance-figures/01_all_states_2014_2024_high_green.svg" target="_blank" rel="noopener">Open the figure full size</a>.</figcaption></figure>
+
+  <h2 class="section-heading">Reported aid, FY2014–2024</h2>
+  <div class="chart-area">
+    <div class="chart-title">Sum of separately reported state gifted aid · millions of dollars (nominal) · states with ≥ 1 positive year</div>
+    <svg id="trend-svg" height="240" style="width:100%;overflow:visible;"></svg>
+  </div>
+
+  <h2 class="section-heading">FY2024 · All states</h2>
+  <div class="state-table-wrap" id="fy24-table"></div>
+</section>
+
+<!-- MAP -->
+<section class="section" id="tab-map">
+  <h2 class="section-heading" style="margin-bottom:1rem;">State aid by year</h2>
+  <div class="map-wrap">
+    <div class="map-controls">
+      <label>Fiscal year</label>
+      <span class="year-display" id="map-year-label">2024</span>
+      <input type="range" class="year-slider" id="year-slider" min="2014" max="2024" value="2024" step="1">
+      <span style="font-size:0.78rem;color:var(--text-muted);">← drag to change year</span>
+    </div>
+    <svg id="us-map-svg" viewBox="0 0 900 560"></svg>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-swatch funding-scale" style="background:linear-gradient(90deg,#f0d98c,#d6a65e,#7da393,#21594e)"></div> Positive aid: lower → higher</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--zero)"></div> Reported zero</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--missing)"></div> Missing (no data)</div>
+    </div>
+  </div>
+  <div class="caution-box" style="margin-bottom:0;">
+    Color intensity scales logarithmically within the positive tier. Both "zero" and "missing" mean the state reported no positive gifted aid amount —
+    but missing means all records lacked a valid flag, while zero means records were present with no positive value.
+    Neither establishes the absence of gifted funding.
+  </div>
+</section>
+
+<!-- TRENDS -->
+<section class="section" id="tab-trends">
+  <h2 class="section-heading">Within-state trends · FY2014–2024</h2>
+  <div class="caution-box" style="margin-bottom:1.5rem;">
+    Only states with at least one year of positive separately reported gifted aid are shown. Each panel uses its own vertical scale to reveal within-state change.
+    Missing years are shown as gaps. South Carolina dropped from ~$33M to zero after FY2022 — likely a classification shift.
+    Minnesota appeared for the first time in FY2024 with $10.6M.
+  </div>
+  <div class="sparkline-grid" id="sparkline-grid"></div>
+</section>
+
+<!-- COVERAGE -->
+<section class="section" id="tab-coverage">
+  <h2 class="section-heading">Reporting coverage · FY2014–2024</h2>
+  <div class="wi-callout">
+    <div class="wi-flag">🏙 Milwaukee, WI — NAGC26 host city</div>
+    <strong>Wisconsin has no separately reported gifted aid in any year from 2014 to 2024.</strong>
+    <p>All Wisconsin school system records in the Census survey are flagged as missing for state-source gifted revenue every year in this dataset. That doesn't mean Wisconsin provides no gifted services — but it does mean the state has not separately identified gifted funding in a way that appears in this federal finance survey. Wisconsin is one of 12 jurisdictions in this situation in FY2024.</p>
+  </div>
+  <div class="caution-box" style="margin-bottom:1.5rem;">
+    A consistent subset of states report positive gifted aid; a larger group consistently reports zero or is missing.
+    The missing category has gradually declined (14 in 2014 → 12 in 2024), suggesting marginally improving coverage over the decade.
+    Because the reporting set isn't fixed, year-to-year changes in the national total partly reflect who reports, not just how much they spend.
+    <br><br>
+    <strong>How "missing" is determined:</strong> the Census publishes a flag for every school system and every finance item. For gifted aid the flag is either R (the state reported a figure) or M (no figure was reported). A missing cell contains a raw zero in the data file, which is why it must be read alongside the flag rather than taken at face value — otherwise every non-reporting state would look like a state spending nothing.
+  </div>
+  <div class="coverage-grid">
+    <div>
+      <h3 style="font-size:0.85rem;font-weight:600;color:var(--text-dim);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">States per category · each year</h3>
+      <div id="coverage-bars"></div>
+      <div style="display:flex;gap:1rem;margin-top:0.8rem;font-size:0.72rem;color:var(--text-dim);">
+        <span style="display:flex;align-items:center;gap:0.3rem;"><span style="width:10px;height:10px;background:var(--gold);display:inline-block;border-radius:2px;"></span>Positive</span>
+        <span style="display:flex;align-items:center;gap:0.3rem;"><span style="width:10px;height:10px;background:var(--zero);display:inline-block;border-radius:2px;"></span>Zero</span>
+        <span style="display:flex;align-items:center;gap:0.3rem;"><span style="width:10px;height:10px;background:var(--surface2);border:1px solid var(--border);display:inline-block;border-radius:2px;"></span>Missing</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:0.85rem;font-weight:600;color:var(--text-dim);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">Always-missing states (FY2024)</h3>
+      <div id="missing-list" style="font-size:0.82rem;color:var(--text-dim);line-height:2;columns:2;column-gap:1.5rem;"></div>
+      <h3 style="font-size:0.85rem;font-weight:600;color:var(--text-dim);margin:1.5rem 0 0.8rem;text-transform:uppercase;letter-spacing:0.06em;">States reporting $0 (FY2024)</h3>
+      <div id="zero-list" style="font-size:0.82rem;color:var(--text-dim);line-height:2;columns:2;column-gap:1.5rem;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR STATE -->
+<section class="section" id="tab-lookup">
+  <h2 class="section-heading">Your state</h2>
+  <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1.5rem;">Type a state name to see its full 11-year record of separately reported gifted aid.</p>
+  <div class="lookup-wrap">
+    <div class="lookup-search" style="position:relative;">
+      <input class="lookup-input" id="lookup-input" type="text" placeholder="e.g. Georgia, Wisconsin, Virginia…" autocomplete="off"
+        oninput="onLookupInput(this.value)" onblur="setTimeout(()=>hideSugg(),150)">
+      <div class="lookup-suggestions" id="lookup-sugg"></div>
+    </div>
+    <div id="lookup-result" class="lookup-empty">Start typing a state name above.</div>
+  </div>
+</section>
+
+<script src="assets/state_year_finance.js"></script>
+<script>
+// ======== DATA ========
+const YEAR_ROWS = window.STATE_YEAR_FINANCE;
+const YEARS = [...new Set(YEAR_ROWS.map(d => d.Year))].sort((a,b) => a-b);
+
+const TREND = YEARS.map(year => {
+  const rows = YEAR_ROWS.filter(d => d.Year === year);
+  return {
+    year,
+    total: rows.reduce((sum,d) => sum + (d.Status === 'positive' ? (d.Amount || 0) : 0), 0),
+    count: rows.filter(d => d.Status === 'positive').length
+  };
+});
+
+const FY24 = YEAR_ROWS.filter(d => d.Year === 2024).map(d => ({
+  state: d.State, fips: d.Fips, C08: d.Amount, pct: d.Share, status: d.Status
+}));
+
+const TRAJECTORIES = {};
+const stateNames = [...new Set(YEAR_ROWS.map(d => d.State))];
+stateNames.forEach(state => {
+  const series = YEARS.map(year => {
+    const row = YEAR_ROWS.find(d => d.State === state && d.Year === year);
+    return !row || row.Status === 'missing' ? null : row.Amount;
+  });
+  if (series.some(value => value !== null && value > 0)) TRAJECTORIES[state] = series;
+});
+
+const COVERAGE = YEARS.map(year => {
+  const rows = YEAR_ROWS.filter(d => d.Year === year);
+  return {
+    year,
+    positive: rows.filter(d => d.Status === 'positive').length,
+    zero: rows.filter(d => d.Status === 'zero').length,
+    missing: rows.filter(d => d.Status === 'missing').length
+  };
+});
+
+const ALL_YEARS = {};
+YEAR_ROWS.forEach(d => {
+  if (!ALL_YEARS[d.Fips]) ALL_YEARS[d.Fips] = {};
+  ALL_YEARS[d.Fips][d.Year] = {val:d.Amount,status:d.Status,state:d.State};
+});
+// ======== TAB NAVIGATION ========
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'map') drawMap(parseInt(document.getElementById('year-slider').value));
+  if (name === 'overview') requestAnimationFrame(drawTrendChart);
+}
+
+// ======== YOUR STATE LOOKUP ========
+const ALL_STATE_NAMES = FY24.map(d => d.state).sort();
+
+function onLookupInput(val) {
+  const sugg = document.getElementById('lookup-sugg');
+  if (!val.trim()) { sugg.style.display = 'none'; return; }
+  const matches = ALL_STATE_NAMES.filter(s => s.toLowerCase().startsWith(val.toLowerCase())).slice(0, 6);
+  if (!matches.length) { sugg.style.display = 'none'; return; }
+  sugg.innerHTML = matches.map(s => `<div class="lookup-sugg-item" onmousedown="selectState('${s}')">${s}</div>`).join('');
+  sugg.style.display = 'block';
+}
+function hideSugg() { document.getElementById('lookup-sugg').style.display = 'none'; }
+function selectState(name) {
+  document.getElementById('lookup-input').value = name;
+  hideSugg();
+  renderLookup(name);
+}
+
+function renderLookup(name) {
+  const fy24row = FY24.find(d => d.state === name);
+  if (!fy24row) return;
+  const fips = fy24row.fips;
+  const traj = TRAJECTORIES[name];
+  const wrap = document.getElementById('lookup-result');
+
+  // Status badge
+  const statusColors = { positive: 'rgba(232,184,75,0.15)', zero: 'rgba(58,80,104,0.4)', missing: 'rgba(30,45,62,0.8)' };
+  const statusTextColors = { positive: 'var(--gold)', zero: 'var(--text-dim)', missing: 'var(--text-muted)' };
+  const statusLabels = { positive: 'Reports positive gifted aid (FY2024)', zero: 'Reports $0 gifted aid (FY2024)', missing: 'No usable data (FY2024)' };
+  const st = fy24row.status;
+  const badgeStyle = `background:${statusColors[st]};color:${statusTextColors[st]};`;
+
+  let trendHtml = '';
+  if (traj) {
+    const vals = traj;
+    const maxV = Math.max(...vals.filter(v => v !== null && v > 0), 0.001);
+    trendHtml = `<div class="lookup-trend-row">`;
+    YEARS.forEach((yr, i) => {
+      const v = vals[i];
+      const barH = (v === null || v === 0) ? 3 : Math.max(4, (v / maxV) * 76);
+      const barColor = v === null ? 'var(--missing)' : v === 0 ? 'var(--zero)' : 'var(--gold)';
+      const label = v === null ? '—' : v === 0 ? '$0' : v >= 1 ? `$${v.toFixed(0)}M` : `$${(v*1000).toFixed(0)}K`;
+      trendHtml += `<div class="lookup-year-col">
+        <div class="lookup-bar-wrap"><div class="lookup-bar" style="height:${barH}px;background:${barColor};" title="${yr}: ${label}"></div></div>
+        <div class="lookup-yr-label">'${String(yr).slice(2)}</div>
+      </div>`;
+    });
+    trendHtml += `</div>`;
+    // Summary note
+    const positiveYears = YEARS.filter((yr,i) => vals[i] !== null && vals[i] > 0);
+    const latest = vals[10];
+    const first = vals.find(v => v !== null && v > 0);
+    let note = '';
+    if (positiveYears.length === 0) {
+      note = `${name} has not reported any positive gifted aid in any year from FY2014 to FY2024.`;
+    } else if (positiveYears.length === YEARS.length) {
+      note = `${name} has reported positive gifted aid every year from FY2014 to FY2024. `;
+      if (latest && first) note += `FY2024 amount ($${latest.toFixed(latest>=1?1:3)}M) is ${((latest/first-1)*100).toFixed(0)}% ${latest>first?'higher':'lower'} than the first reported year.`;
+    } else {
+      note = `${name} reported positive gifted aid in ${positiveYears.length} of 11 years (${positiveYears.join(', ')}).`;
+    }
+    // Wisconsin special
+    if (name === 'Wisconsin') note += ' As the host state for NAGC26, Wisconsin\'s missing data is a reminder that most states don\'t separately track gifted funding at the federal level.';
+    trendHtml += `<div class="lookup-note">${note}</div>`;
+  } else {
+    // State not in trajectories (always zero or missing)
+    const yrs = YEARS.map(yr => {
+      const data = ALL_YEARS[fips] && ALL_YEARS[fips][yr];
+      return data ? data.status : st;
+    });
+    trendHtml = `<div class="lookup-trend-row">`;
+    YEARS.forEach((yr, i) => {
+      const s2 = yrs[i];
+      const barColor = s2 === 'missing' ? 'var(--missing)' : 'var(--zero)';
+      trendHtml += `<div class="lookup-year-col">
+        <div class="lookup-bar-wrap"><div class="lookup-bar" style="height:3px;background:${barColor};"></div></div>
+        <div class="lookup-yr-label">'${String(yr).slice(2)}</div>
+      </div>`;
+    });
+    trendHtml += `</div>`;
+    trendHtml += `<div class="lookup-note">${name} ${st === 'missing' ? 'has no separately reported gifted aid in any year in this dataset — all school system records are flagged as missing.' : 'consistently reports $0 in separately identified gifted aid. This may mean gifted services are funded through general education formulas rather than a dedicated line item.'}</div>`;
+  }
+
+  wrap.innerHTML = `
+    <div class="lookup-state-name">${name}</div>
+    <span class="lookup-status-badge" style="${badgeStyle}">${statusLabels[st]}</span>
+    ${trendHtml}
+  `;
+}
+
+// ======== TREND CHART ========
+function drawTrendChart() {
+  const svg = document.getElementById('trend-svg');
+  const W = svg.getBoundingClientRect().width || 800;
+  const H = 240, pad = { top: 20, right: 20, bottom: 30, left: 55 };
+  const iW = W - pad.left - pad.right;
+  const iH = H - pad.top - pad.bottom;
+
+  const maxVal = Math.max(...TREND.map(d => d.total)) * 1.05;
+  const xScale = i => pad.left + (i / (TREND.length - 1)) * iW;
+  const yScale = v => pad.top + iH - (v / maxVal) * iH;
+
+  let html = '';
+  // Grid lines
+  [0, 400, 800, 1200, 1600].forEach(v => {
+    if (v > maxVal) return;
+    const y = yScale(v);
+    html += `<line x1="${pad.left}" y1="${y}" x2="${pad.left + iW}" y2="${y}" stroke="var(--border)" stroke-width="1"/>`;
+    html += `<text x="${pad.left - 6}" y="${y + 4}" text-anchor="end" font-size="10" fill="var(--text-muted)">$${v}</text>`;
+  });
+  // Area
+  const pts = TREND.map((d, i) => `${xScale(i)},${yScale(d.total)}`).join(' ');
+  const closeArea = `${xScale(TREND.length-1)},${pad.top + iH} ${pad.left},${pad.top + iH}`;
+  html += `<polygon points="${pts} ${closeArea}" fill="rgba(232,184,75,0.08)"/>`;
+  // Line
+  html += `<polyline points="${pts}" fill="none" stroke="var(--gold)" stroke-width="2"/>`;
+  // Dots + labels
+  TREND.forEach((d, i) => {
+    const x = xScale(i), y = yScale(d.total);
+    html += `<circle cx="${x}" cy="${y}" r="4" fill="var(--gold)"/>`;
+    html += `<text x="${x}" y="${pad.top + iH + 18}" text-anchor="middle" font-size="10" fill="var(--text-muted)">${d.year}</text>`;
+    if (i === 0 || i === TREND.length - 1 || d.year === 2020 || d.year === 2021) {
+      const labelY = y < pad.top + 20 ? y + 16 : y - 8;
+      html += `<text x="${x}" y="${labelY}" text-anchor="middle" font-size="10" fill="var(--text-dim)" font-weight="500">$${d.total.toFixed(0)}M</text>`;
+    }
+  });
+  svg.innerHTML = html;
+}
+
+// ======== FY24 TABLE ========
+function buildFY24Table() {
+  const wrap = document.getElementById('fy24-table');
+  let html = `<div class="state-table-header">
+    <div>State</div><div>Gifted aid (millions)</div><div>% of state revenue</div><div>Status</div>
+  </div>`;
+  FY24.forEach(d => {
+    const valStr = d.status === 'missing' ? '—' :
+      d.C08 === 0 ? '$0.0' : `$${d.C08.toFixed(3)}`;
+    const pctStr = d.status === 'missing' || d.pct === null ? '—' : `${d.pct.toFixed(3)}%`;
+    const valClass = d.status === 'positive' ? 'val-positive' : d.status === 'zero' ? 'val-zero' : 'val-missing';
+    const badge = `<span class="badge badge-${d.status}">${d.status === 'positive' ? 'Positive' : d.status === 'zero' ? 'Zero' : 'Missing'}</span>`;
+    html += `<div class="state-table-row">
+      <div class="state-name">${d.state}</div>
+      <div class="${valClass}">${valStr}</div>
+      <div class="${valClass}">${pctStr}</div>
+      <div>${badge}</div>
+    </div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+// ======== MAP ========
+// Real Albers USA projected paths, y-axis corrected (north=top)
+const STATE_PATHS = {
+  1: "M 584.4,347.5 L 612.6,345.0 L 617.4,361.8 L 624.2,386.5 L 626.8,391.9 L 628.9,394.8 L 628.4,396.8 L 630.5,397.8 L 628.0,400.6 L 628.3,403.1 L 627.3,406.7 L 629.6,412.5 L 629.0,417.8 L 631.5,423.0 L 623.2,424.1 L 587.6,427.6 L 587.3,430.3 L 591.5,433.7 L 591.1,437.1 L 592.5,438.6 L 590.3,441.7 L 588.0,442.6 L 583.4,439.7 L 582.5,434.8 L 581.2,434.4 L 579.9,438.2 L 579.7,441.9 L 575.2,441.3 L 571.5,411.0 L 572.2,372.8 L 572.7,350.7 L 570.9,348.8 L 584.4,347.5 Z",
+  2: "M 167.9,474.4 L 171.3,475.9 L 174.0,480.1 L 171.3,479.4 L 171.9,480.8 L 169.8,479.1 L 170.3,477.9 L 167.9,474.4 Z M 166.4,472.1 L 166.2,471.4 L 168.1,471.2 L 169.8,472.8 L 167.6,474.0 L 166.4,472.1 Z M 166.5,474.2 L 165.8,472.2 L 167.3,473.4 L 167.1,476.3 L 166.5,474.2 Z M 165.5,475.4 L 163.0,473.7 L 162.1,470.5 L 163.6,470.8 L 165.5,475.4 Z M 162.9,467.2 L 165.2,468.4 L 165.9,470.3 L 164.9,472.1 L 162.9,467.2 Z M 159.3,468.2 L 162.1,468.0 L 163.5,470.3 L 161.6,470.1 L 161.2,471.4 L 159.0,469.7 L 159.3,468.2 Z M 133.6,464.0 L 132.0,466.1 L 133.6,464.0 Z M 127.8,419.7 L 132.8,420.3 L 134.8,419.3 L 138.6,420.7 L 146.7,461.6 L 150.8,460.4 L 150.8,461.7 L 155.9,465.9 L 159.2,460.9 L 171.6,471.9 L 176.8,473.0 L 178.0,475.9 L 177.2,478.9 L 175.9,476.6 L 174.6,477.4 L 173.3,475.7 L 172.9,476.7 L 171.9,474.9 L 170.6,475.0 L 170.5,472.0 L 166.9,470.8 L 165.8,468.3 L 161.7,466.2 L 160.4,463.4 L 162.0,467.5 L 157.1,465.3 L 159.7,467.3 L 158.6,468.4 L 150.2,464.5 L 150.1,462.1 L 148.8,463.9 L 143.6,463.2 L 140.7,464.0 L 136.1,462.2 L 134.6,463.7 L 135.6,461.7 L 133.8,460.2 L 131.2,461.6 L 131.1,460.6 L 131.7,465.1 L 128.5,465.4 L 123.8,469.4 L 123.1,468.2 L 124.7,467.1 L 123.1,466.6 L 123.9,462.4 L 127.5,460.9 L 125.4,459.7 L 122.5,462.6 L 120.4,467.1 L 118.0,468.6 L 117.9,469.9 L 119.9,470.8 L 118.0,473.7 L 112.7,477.2 L 112.1,479.1 L 107.7,481.1 L 107.1,483.3 L 100.0,485.5 L 99.2,484.2 L 97.8,486.5 L 96.4,485.3 L 96.2,486.7 L 94.9,486.1 L 94.8,487.8 L 90.2,488.4 L 91.3,486.4 L 94.3,486.8 L 98.8,483.0 L 101.2,482.7 L 101.2,483.9 L 102.6,483.9 L 102.5,481.7 L 107.0,479.6 L 109.5,476.2 L 111.2,471.4 L 111.1,470.6 L 108.3,471.4 L 107.7,470.2 L 106.9,472.5 L 103.9,469.2 L 100.3,471.2 L 100.9,467.0 L 100.1,464.2 L 96.2,464.9 L 93.8,461.0 L 94.5,458.9 L 92.8,456.1 L 97.0,450.1 L 98.3,449.6 L 100.1,450.8 L 101.9,449.1 L 104.1,449.3 L 105.0,447.9 L 104.8,443.0 L 101.4,445.2 L 101.0,444.2 L 97.2,444.1 L 94.8,442.8 L 95.1,439.6 L 92.5,438.0 L 99.9,434.9 L 101.0,435.1 L 100.6,437.3 L 105.3,437.3 L 103.3,434.6 L 103.7,433.8 L 104.8,436.2 L 104.8,433.6 L 101.4,432.6 L 100.9,430.3 L 97.3,426.3 L 98.5,424.3 L 103.0,423.9 L 106.3,419.1 L 112.3,417.4 L 114.5,415.2 L 116.0,416.0 L 115.3,417.6 L 116.8,416.1 L 118.0,417.8 L 120.9,417.5 L 120.7,418.5 L 122.6,419.4 L 125.2,418.7 L 127.8,419.7 Z M 120.8,474.5 L 120.0,474.5 L 121.4,472.1 L 122.8,473.9 L 120.8,474.5 Z M 118.4,476.7 L 118.4,475.5 L 119.4,475.9 L 120.1,474.7 L 122.7,476.3 L 118.3,480.3 L 116.5,477.9 L 117.8,476.2 L 118.4,476.7 Z M 101.8,485.7 L 101.0,486.6 L 101.8,485.7 Z M 91.3,461.6 L 92.7,462.2 L 91.4,464.4 L 88.8,461.8 L 91.3,461.6 Z M 86.0,489.5 L 85.3,490.7 L 86.5,490.6 L 85.0,491.5 L 81.7,491.7 L 84.6,490.8 L 84.2,489.4 L 86.0,489.5 Z M 78.9,491.9 L 81.6,490.8 L 79.6,492.6 L 78.9,491.9 Z M 83.7,444.4 L 89.1,447.7 L 86.9,448.8 L 85.0,446.2 L 83.3,445.9 L 83.7,444.4 Z M 63.4,491.7 L 64.4,491.9 L 63.7,492.5 L 61.4,492.2 L 63.4,491.7 Z M 57.2,491.7 L 56.0,492.4 L 56.6,490.9 L 57.2,491.7 Z M 32.7,475.3 L 28.0,473.8 L 29.2,473.2 L 32.7,475.3 Z",
+  4: "M 240.7,299.7 L 225.1,412.1 L 191.2,407.1 L 172.9,396.5 L 133.4,373.1 L 135.8,369.0 L 139.2,368.9 L 140.4,367.4 L 140.3,363.5 L 138.1,363.0 L 138.5,355.5 L 142.3,353.3 L 143.3,350.5 L 143.6,345.7 L 146.2,342.7 L 149.0,341.9 L 151.4,339.7 L 148.8,336.3 L 147.7,330.7 L 145.7,326.9 L 146.2,324.4 L 147.7,321.9 L 148.1,318.2 L 147.5,314.2 L 148.9,302.5 L 154.7,302.8 L 156.2,305.6 L 157.7,305.8 L 160.0,302.7 L 163.0,286.9 L 218.0,296.3 L 240.7,299.7 Z",
+  5: "M 469.3,323.5 L 537.6,321.0 L 539.3,324.8 L 537.0,327.3 L 534.7,331.2 L 544.9,330.6 L 544.7,334.3 L 542.4,335.6 L 542.1,338.7 L 539.3,342.1 L 539.8,347.0 L 538.5,350.6 L 536.9,351.2 L 538.0,352.9 L 535.5,354.6 L 534.6,358.0 L 532.9,359.0 L 533.4,363.0 L 530.6,364.2 L 530.7,365.5 L 527.5,369.0 L 528.6,371.1 L 525.8,374.5 L 523.5,380.7 L 526.5,383.2 L 525.2,384.9 L 526.3,389.0 L 525.2,391.8 L 484.7,393.1 L 477.6,393.2 L 477.3,382.6 L 475.0,381.8 L 471.8,382.8 L 470.0,381.0 L 470.3,345.7 L 467.0,323.6 L 469.3,323.5 Z",
+  6: "M 51.1,156.5 L 63.2,159.9 L 82.1,165.4 L 96.8,169.3 L 88.2,202.9 L 81.8,227.5 L 96.6,249.8 L 110.9,271.4 L 122.5,288.7 L 131.0,301.5 L 146.2,324.4 L 145.7,326.9 L 147.7,330.7 L 148.8,336.3 L 151.4,339.7 L 149.0,341.9 L 146.2,342.7 L 143.6,345.7 L 143.3,350.5 L 142.3,353.3 L 138.5,355.5 L 138.1,363.0 L 140.3,363.5 L 140.4,367.4 L 139.2,368.9 L 135.8,369.0 L 113.9,366.4 L 96.0,364.2 L 94.6,361.2 L 95.4,357.1 L 95.3,352.0 L 93.8,348.1 L 89.8,342.2 L 84.5,336.4 L 83.0,337.2 L 80.7,335.9 L 81.5,334.1 L 79.7,329.5 L 75.7,329.4 L 69.8,324.9 L 69.5,322.3 L 65.8,318.3 L 60.7,317.2 L 56.9,314.8 L 51.5,314.0 L 49.4,310.7 L 51.5,305.4 L 50.8,304.3 L 52.4,300.7 L 49.0,296.7 L 49.9,292.8 L 48.5,292.1 L 46.8,288.1 L 45.3,286.8 L 45.1,284.5 L 41.4,274.9 L 39.3,271.8 L 40.4,265.4 L 41.4,266.3 L 43.6,262.9 L 42.3,258.9 L 39.6,258.6 L 37.0,254.5 L 36.4,251.7 L 37.3,249.5 L 36.5,245.9 L 37.9,240.8 L 40.7,241.6 L 41.6,234.2 L 40.1,234.6 L 38.9,238.0 L 35.7,237.9 L 33.0,234.3 L 33.8,229.6 L 32.5,225.3 L 30.2,222.2 L 29.3,219.2 L 26.5,213.0 L 27.6,211.7 L 27.6,204.7 L 29.5,201.4 L 29.9,195.6 L 27.7,189.2 L 25.0,185.2 L 25.4,181.5 L 31.5,174.2 L 33.1,171.6 L 33.1,169.2 L 36.2,163.8 L 36.6,158.2 L 35.4,156.5 L 37.3,152.5 L 51.1,156.5 Z",
+  8: "M 268.2,222.3 L 300.6,226.1 L 325.5,228.3 L 355.1,230.5 L 353.8,250.6 L 350.2,310.8 L 335.1,309.7 L 314.2,308.1 L 274.6,304.1 L 266.0,303.0 L 240.7,299.7 L 243.9,276.5 L 243.9,274.3 L 246.4,257.4 L 251.6,220.2 L 268.2,222.3 Z",
+  9: "M 778.3,172.2 L 796.2,168.1 L 796.2,168.4 L 799.2,179.8 L 798.8,181.9 L 797.5,181.9 L 791.6,185.0 L 784.0,186.4 L 781.4,189.9 L 778.2,191.6 L 774.6,194.8 L 773.0,192.8 L 776.1,189.8 L 774.6,188.5 L 772.0,173.5 L 778.3,172.2 Z",
+  10: "M 754.2,223.8 L 753.3,226.5 L 752.1,228.1 L 753.1,231.2 L 755.9,233.6 L 757.5,238.3 L 761.8,242.6 L 763.4,242.5 L 765.5,249.1 L 755.8,251.1 L 749.0,226.7 L 751.1,224.0 L 754.2,223.8 Z",
+  11: "M 733.4,244.9 L 735.7,246.4 L 734.1,248.9 L 732.4,246.3 L 733.4,244.9 Z",
+  12: "M 623.2,424.1 L 631.5,423.0 L 634.5,428.5 L 657.8,426.9 L 679.7,425.4 L 681.1,429.5 L 683.2,429.1 L 683.3,425.0 L 682.1,421.4 L 683.5,419.6 L 687.6,420.7 L 692.3,420.7 L 694.6,429.1 L 698.3,438.3 L 705.2,450.1 L 715.0,462.3 L 714.1,463.5 L 715.5,469.6 L 719.8,476.0 L 727.3,489.2 L 729.1,493.4 L 729.7,497.9 L 730.5,514.3 L 728.9,514.9 L 728.0,520.2 L 728.8,521.7 L 726.0,525.8 L 724.5,525.2 L 721.4,527.2 L 715.8,529.0 L 713.8,527.3 L 714.1,524.2 L 708.7,516.2 L 705.4,515.0 L 702.8,516.6 L 699.9,512.2 L 698.8,508.3 L 694.4,504.5 L 693.1,501.7 L 693.1,497.5 L 690.9,497.0 L 691.8,499.4 L 690.0,500.3 L 682.9,490.5 L 680.3,488.1 L 684.5,479.6 L 681.1,480.5 L 679.1,483.3 L 676.3,479.7 L 677.8,468.6 L 677.1,459.5 L 674.8,457.7 L 673.7,454.9 L 670.3,454.7 L 665.8,450.5 L 662.4,448.9 L 661.9,446.0 L 659.6,445.2 L 657.4,442.2 L 650.3,438.8 L 644.7,440.4 L 645.3,443.4 L 643.4,443.1 L 636.7,447.7 L 629.2,449.4 L 629.2,447.2 L 627.1,444.8 L 617.6,439.9 L 611.0,438.1 L 605.2,438.0 L 600.5,438.9 L 590.3,441.7 L 592.5,438.6 L 591.1,437.1 L 591.5,433.7 L 587.3,430.3 L 587.6,427.6 L 623.2,424.1 Z",
+  13: "M 652.6,339.7 L 649.8,344.5 L 649.8,346.6 L 655.7,350.1 L 657.4,349.5 L 660.4,353.5 L 661.3,355.7 L 664.4,359.5 L 668.5,361.4 L 671.2,364.8 L 676.1,367.5 L 676.2,369.8 L 679.6,373.1 L 684.5,375.5 L 686.1,378.5 L 686.9,382.7 L 689.4,383.8 L 692.8,388.7 L 693.4,392.0 L 697.5,393.1 L 694.5,400.5 L 694.3,404.1 L 693.1,407.4 L 693.4,410.5 L 691.7,412.2 L 692.3,420.7 L 687.6,420.7 L 683.5,419.6 L 682.1,421.4 L 683.3,425.0 L 683.2,429.1 L 681.1,429.5 L 679.7,425.4 L 657.8,426.9 L 634.5,428.5 L 631.5,423.0 L 629.0,417.8 L 629.6,412.5 L 627.3,406.7 L 628.3,403.1 L 628.0,400.6 L 630.5,397.8 L 628.4,396.8 L 628.9,394.8 L 626.8,391.9 L 624.2,386.5 L 617.4,361.8 L 612.6,345.0 L 633.3,342.5 L 644.5,341.2 L 652.6,339.7 Z",
+  15: "M 287.1,507.0 L 283.4,505.6 L 282.8,504.2 L 283.3,500.7 L 280.7,494.6 L 282.7,492.6 L 284.2,489.8 L 283.1,488.0 L 283.4,486.1 L 287.6,488.3 L 292.3,489.9 L 295.2,492.4 L 295.2,494.4 L 299.5,497.8 L 296.9,500.6 L 292.2,501.9 L 288.9,504.0 L 287.1,507.0 Z M 272.7,474.1 L 274.5,476.3 L 276.7,475.3 L 281.5,477.8 L 280.8,480.0 L 275.9,481.2 L 274.9,480.8 L 274.6,478.0 L 272.1,477.4 L 271.1,475.8 L 272.7,474.1 Z M 266.9,471.2 L 265.4,472.9 L 261.9,472.9 L 263.0,471.1 L 266.9,471.2 Z M 252.4,463.5 L 254.0,467.2 L 253.2,469.4 L 250.0,469.7 L 247.9,465.3 L 249.8,465.2 L 252.4,463.5 Z M 229.9,455.0 L 231.6,455.2 L 232.4,456.8 L 231.9,459.2 L 230.2,460.6 L 225.5,458.8 L 226.1,456.2 L 229.9,455.0 Z",
+  16: "M 182.3,46.6 L 178.1,66.3 L 181.2,72.6 L 180.2,77.9 L 182.2,80.8 L 184.8,82.2 L 184.8,83.6 L 188.7,89.8 L 188.8,92.1 L 192.0,94.8 L 191.8,96.1 L 195.8,96.8 L 192.4,103.6 L 191.2,108.1 L 192.0,111.4 L 189.1,113.0 L 189.7,115.3 L 188.6,117.3 L 191.1,119.9 L 195.0,117.9 L 196.7,116.0 L 198.8,118.4 L 198.2,119.9 L 198.8,123.9 L 200.3,128.3 L 201.7,130.0 L 200.9,133.7 L 202.2,135.6 L 205.1,136.4 L 205.8,143.0 L 207.2,144.4 L 208.9,142.8 L 213.3,143.7 L 216.8,142.6 L 218.5,143.8 L 222.0,143.5 L 222.5,144.7 L 225.4,144.5 L 229.3,140.9 L 230.9,144.7 L 233.1,147.2 L 225.3,196.0 L 209.1,193.4 L 182.0,188.5 L 139.2,179.4 L 147.2,143.8 L 150.5,137.8 L 149.7,135.9 L 147.1,135.0 L 146.7,132.1 L 151.1,125.8 L 152.7,125.5 L 154.7,123.0 L 154.9,121.1 L 157.0,119.1 L 158.6,115.9 L 162.7,110.8 L 162.2,107.9 L 159.3,105.8 L 158.1,102.1 L 158.8,98.7 L 157.8,94.9 L 158.4,93.3 L 164.1,67.5 L 169.6,43.8 L 182.3,46.6 Z",
+  17: "M 523.1,201.0 L 550.0,199.6 L 564.4,198.4 L 564.2,202.3 L 566.8,206.6 L 569.8,213.7 L 573.9,260.8 L 572.6,264.6 L 574.9,268.7 L 575.5,272.2 L 573.8,275.2 L 573.5,277.9 L 571.1,282.4 L 569.4,282.9 L 570.0,285.3 L 568.9,286.4 L 568.4,291.2 L 569.0,292.5 L 567.2,295.5 L 568.9,298.9 L 562.7,301.3 L 562.2,303.4 L 563.9,305.9 L 562.1,307.7 L 556.1,305.1 L 554.3,305.4 L 552.2,309.1 L 553.0,310.2 L 550.5,310.1 L 546.6,304.7 L 547.8,303.3 L 546.2,299.5 L 546.0,296.4 L 540.7,292.5 L 539.1,293.0 L 537.2,290.5 L 532.4,286.7 L 532.3,283.5 L 534.6,278.2 L 534.0,276.4 L 535.4,273.9 L 533.1,272.6 L 529.7,271.9 L 528.1,273.9 L 526.8,272.7 L 525.5,266.2 L 520.2,262.2 L 515.2,257.3 L 513.1,251.2 L 512.7,247.2 L 513.9,244.3 L 513.9,240.6 L 518.0,238.2 L 518.3,235.1 L 520.1,233.1 L 520.2,229.5 L 517.6,226.8 L 518.4,223.3 L 524.1,222.0 L 528.5,219.2 L 528.8,216.1 L 530.7,214.6 L 531.0,210.8 L 530.4,208.3 L 527.0,206.5 L 526.5,204.5 L 523.1,201.0 Z",
+  18: "M 592.2,210.5 L 609.5,208.6 L 609.6,209.9 L 612.5,233.6 L 615.6,261.5 L 614.5,262.5 L 616.4,267.8 L 613.8,268.2 L 611.1,270.4 L 607.1,270.0 L 607.7,273.9 L 605.3,275.8 L 604.6,278.4 L 602.0,279.7 L 601.1,284.9 L 599.4,286.4 L 595.8,284.9 L 595.0,282.7 L 591.8,285.5 L 592.3,287.7 L 588.9,288.8 L 587.7,286.9 L 584.0,289.3 L 582.9,291.5 L 578.7,288.9 L 576.8,289.7 L 575.3,288.4 L 574.1,289.9 L 570.3,290.5 L 569.0,292.5 L 568.4,291.2 L 568.9,286.4 L 570.0,285.3 L 569.4,282.9 L 571.1,282.4 L 573.5,277.9 L 573.8,275.2 L 575.5,272.2 L 574.9,268.7 L 572.6,264.6 L 573.9,260.8 L 569.8,213.7 L 571.4,214.9 L 575.9,214.4 L 580.0,211.7 L 592.2,210.5 Z",
+  19: "M 511.6,181.8 L 513.8,181.7 L 514.1,184.6 L 516.3,186.5 L 514.7,189.0 L 515.4,193.4 L 516.7,196.6 L 521.9,198.6 L 523.1,201.0 L 526.5,204.5 L 527.0,206.5 L 530.4,208.3 L 531.0,210.8 L 530.7,214.6 L 528.8,216.1 L 528.5,219.2 L 524.1,222.0 L 518.4,223.3 L 517.6,226.8 L 520.2,229.5 L 520.1,233.1 L 518.3,235.1 L 518.0,238.2 L 513.9,240.6 L 513.9,244.3 L 512.2,243.7 L 509.0,239.8 L 507.4,239.9 L 486.2,241.3 L 465.6,241.9 L 448.6,241.7 L 446.9,239.1 L 447.7,233.9 L 446.2,229.4 L 446.3,224.4 L 443.7,222.6 L 443.3,219.9 L 444.2,217.5 L 443.2,214.0 L 441.2,212.7 L 438.6,203.7 L 435.9,199.3 L 437.2,196.3 L 437.7,192.4 L 438.8,191.0 L 437.0,189.0 L 437.5,185.5 L 436.8,183.8 L 438.6,183.4 L 511.6,181.8 Z",
+  20: "M 356.1,250.7 L 455.6,253.5 L 457.1,255.3 L 462.0,256.8 L 458.6,262.7 L 460.6,264.6 L 463.1,269.3 L 466.3,270.3 L 466.9,313.6 L 380.9,312.4 L 350.2,310.8 L 353.8,250.6 L 356.1,250.7 Z",
+  21: "M 630.3,266.4 L 634.1,268.7 L 636.3,267.0 L 642.3,267.7 L 643.7,265.5 L 645.7,264.6 L 646.9,267.9 L 648.7,268.2 L 651.2,270.6 L 651.6,276.6 L 654.0,280.2 L 656.9,282.8 L 658.0,284.9 L 661.3,286.8 L 663.3,286.8 L 658.2,293.0 L 652.9,296.8 L 653.1,298.3 L 651.0,299.9 L 651.1,301.7 L 648.2,302.9 L 647.5,305.2 L 639.4,309.1 L 639.2,309.5 L 625.8,311.0 L 614.0,311.7 L 610.9,312.2 L 593.5,313.3 L 573.7,315.6 L 570.2,315.0 L 570.7,318.6 L 551.1,319.9 L 549.2,320.2 L 549.9,317.7 L 552.3,318.4 L 553.0,310.2 L 552.2,309.1 L 554.3,305.4 L 556.1,305.1 L 562.1,307.7 L 563.9,305.9 L 562.2,303.4 L 562.7,301.3 L 568.9,298.9 L 567.2,295.5 L 569.0,292.5 L 570.3,290.5 L 574.1,289.9 L 575.3,288.4 L 576.8,289.7 L 578.7,288.9 L 582.9,291.5 L 584.0,289.3 L 587.7,286.9 L 588.9,288.8 L 592.3,287.7 L 591.8,285.5 L 595.0,282.7 L 595.8,284.9 L 599.4,286.4 L 601.1,284.9 L 602.0,279.7 L 604.6,278.4 L 605.3,275.8 L 607.7,273.9 L 607.1,270.0 L 611.1,270.4 L 613.8,268.2 L 616.4,267.8 L 614.5,262.5 L 615.6,261.5 L 621.4,260.8 L 625.0,264.5 L 625.4,266.3 L 630.3,266.4 Z",
+  22: "M 484.7,393.1 L 525.2,391.8 L 526.8,394.1 L 525.7,395.0 L 525.7,399.1 L 528.3,401.4 L 529.0,407.3 L 527.2,412.0 L 523.4,415.1 L 522.6,419.6 L 520.9,419.2 L 521.0,426.6 L 519.0,426.9 L 520.4,430.7 L 519.2,432.2 L 551.3,430.4 L 550.0,437.1 L 553.1,441.2 L 554.0,444.5 L 556.2,446.4 L 551.3,449.4 L 551.0,451.4 L 555.3,452.5 L 556.8,449.2 L 560.6,452.1 L 560.5,454.6 L 558.5,455.8 L 554.6,455.1 L 555.2,456.9 L 554.1,459.9 L 557.5,462.1 L 562.9,462.5 L 565.0,465.3 L 566.5,465.6 L 564.0,469.2 L 561.0,468.8 L 558.1,465.5 L 551.7,464.0 L 551.5,460.7 L 548.4,462.0 L 548.8,464.8 L 547.5,467.5 L 545.3,468.0 L 543.4,465.2 L 539.4,465.3 L 538.1,468.5 L 535.5,469.5 L 532.6,467.8 L 530.3,467.7 L 527.8,462.9 L 523.9,460.9 L 522.4,461.3 L 520.7,457.3 L 516.1,458.0 L 515.9,455.5 L 511.6,458.1 L 512.2,459.9 L 508.9,461.8 L 503.6,461.1 L 497.3,458.6 L 493.0,457.5 L 483.6,458.8 L 482.4,459.6 L 480.9,457.6 L 484.8,450.5 L 483.4,446.7 L 484.5,444.6 L 483.9,441.9 L 485.5,439.7 L 487.2,434.6 L 486.8,430.3 L 482.0,422.3 L 481.8,418.0 L 478.0,413.7 L 477.6,393.2 L 484.7,393.1 Z",
+  23: "M 806.2,143.9 L 804.2,143.0 L 803.9,141.1 L 801.1,139.4 L 793.4,114.4 L 789.4,102.1 L 794.5,97.9 L 793.1,96.8 L 794.5,93.3 L 796.4,91.3 L 795.7,90.2 L 797.3,87.9 L 795.7,84.7 L 795.6,79.3 L 797.2,77.1 L 796.5,71.5 L 802.5,54.1 L 805.0,54.0 L 806.2,57.5 L 808.2,58.2 L 811.8,54.9 L 814.5,54.1 L 815.9,52.2 L 820.4,54.1 L 823.3,56.0 L 830.0,77.2 L 831.3,82.4 L 836.3,82.3 L 836.3,84.7 L 838.1,86.4 L 837.7,88.6 L 840.5,90.9 L 842.8,89.5 L 847.4,95.5 L 845.5,99.4 L 843.5,98.8 L 842.9,101.3 L 840.8,101.4 L 841.1,103.2 L 838.5,103.8 L 835.8,109.1 L 833.9,106.5 L 832.5,106.7 L 834.0,109.6 L 831.4,112.0 L 829.9,109.8 L 828.8,111.5 L 825.3,112.5 L 824.4,109.7 L 822.5,111.0 L 823.4,112.8 L 822.7,117.6 L 823.4,118.6 L 821.5,121.7 L 818.8,121.6 L 817.9,124.4 L 815.9,125.3 L 814.8,127.8 L 812.5,128.0 L 811.3,126.1 L 809.2,130.3 L 810.6,132.2 L 808.5,133.5 L 808.9,135.4 L 806.9,138.3 L 806.2,143.9 Z",
+  24: "M 694.1,237.4 L 749.0,226.7 L 755.8,251.1 L 765.5,249.1 L 764.4,258.1 L 762.2,258.9 L 758.3,261.0 L 755.2,262.5 L 754.6,259.3 L 753.1,258.3 L 754.5,256.5 L 751.5,253.8 L 751.1,255.3 L 747.8,255.7 L 746.0,252.4 L 747.0,252.2 L 746.1,247.5 L 746.7,245.5 L 744.1,239.5 L 745.0,235.5 L 747.3,234.3 L 747.0,230.5 L 745.2,231.3 L 745.5,233.3 L 742.1,236.6 L 741.4,239.1 L 742.4,244.8 L 741.5,247.8 L 743.1,252.2 L 745.7,254.9 L 745.9,257.3 L 747.7,259.4 L 747.4,261.2 L 743.2,258.8 L 737.9,258.3 L 735.8,255.6 L 733.4,257.9 L 731.8,255.7 L 733.4,252.3 L 734.1,248.9 L 735.7,246.4 L 733.4,244.9 L 732.4,246.3 L 730.1,244.9 L 726.8,244.5 L 726.2,241.6 L 724.2,240.3 L 721.9,240.4 L 719.1,235.3 L 716.6,235.7 L 713.7,234.4 L 712.6,236.2 L 710.1,236.5 L 709.9,238.8 L 705.3,238.2 L 702.8,241.7 L 700.8,241.4 L 698.4,245.2 L 695.8,247.6 L 694.1,237.4 Z",
+  25: "M 804.1,148.0 L 805.6,148.0 L 807.1,151.2 L 807.2,154.1 L 805.6,157.3 L 806.4,160.2 L 809.6,159.8 L 812.3,162.4 L 812.6,164.9 L 814.3,165.1 L 815.1,167.3 L 819.6,168.1 L 823.7,165.0 L 823.4,168.0 L 817.3,172.2 L 814.8,173.0 L 812.8,171.6 L 810.6,172.7 L 810.9,174.1 L 808.5,175.7 L 806.5,172.5 L 805.9,171.9 L 804.1,171.0 L 802.1,166.6 L 800.0,167.2 L 796.2,168.4 L 796.2,168.1 L 778.3,172.2 L 772.0,173.5 L 771.5,172.9 L 771.9,159.3 L 783.4,156.7 L 799.8,153.1 L 800.9,150.9 L 804.1,148.0 Z",
+  26: "M 629.3,206.6 L 609.6,209.9 L 609.5,208.6 L 592.2,210.5 L 580.0,211.7 L 582.7,208.8 L 584.3,204.2 L 585.8,201.2 L 586.8,197.3 L 587.0,191.8 L 586.1,185.9 L 580.7,174.8 L 581.6,170.3 L 580.1,165.2 L 582.8,159.5 L 583.0,155.0 L 582.3,152.7 L 584.5,151.5 L 584.5,148.2 L 588.0,146.9 L 590.4,143.0 L 590.9,150.2 L 592.4,150.4 L 593.9,146.6 L 593.3,140.5 L 594.2,138.9 L 597.9,137.5 L 596.2,133.4 L 598.3,129.5 L 601.4,129.0 L 605.1,130.8 L 608.6,130.7 L 610.6,133.3 L 613.2,133.2 L 617.8,135.2 L 619.3,134.9 L 622.2,138.8 L 620.6,141.3 L 622.9,144.0 L 624.0,147.3 L 624.1,154.7 L 621.5,157.0 L 621.3,160.8 L 618.1,162.6 L 616.8,167.4 L 617.8,169.0 L 621.4,170.2 L 623.7,167.4 L 626.1,161.9 L 630.7,159.3 L 633.3,160.4 L 635.2,163.0 L 637.8,171.1 L 638.7,175.1 L 640.9,179.9 L 640.5,187.3 L 638.3,188.7 L 637.8,186.1 L 636.4,187.1 L 635.4,193.3 L 632.7,196.0 L 632.5,200.7 L 629.3,205.0 L 629.3,206.6 Z",
+  27: "M 499.6,118.5 L 498.5,117.7 L 495.8,119.4 L 496.3,131.2 L 495.5,132.4 L 491.6,134.2 L 488.6,138.5 L 488.5,141.3 L 490.1,141.5 L 491.9,144.0 L 490.4,147.1 L 490.8,150.4 L 490.1,157.8 L 493.9,161.2 L 496.9,161.4 L 498.4,163.6 L 502.8,165.6 L 503.7,168.2 L 507.9,171.4 L 510.2,172.0 L 513.1,176.2 L 512.9,179.4 L 513.8,181.7 L 511.6,181.8 L 438.6,183.4 L 438.8,147.6 L 435.6,145.3 L 433.2,141.5 L 437.0,137.2 L 437.4,135.0 L 436.9,127.0 L 435.2,124.9 L 434.1,120.6 L 434.4,115.3 L 433.9,114.4 L 433.6,101.7 L 431.0,95.0 L 430.0,91.2 L 429.7,83.2 L 430.6,80.6 L 428.9,74.3 L 456.3,74.4 L 456.2,66.8 L 458.8,67.0 L 460.6,68.5 L 462.4,78.7 L 463.8,79.9 L 468.2,80.1 L 468.7,81.1 L 473.8,81.4 L 474.5,83.5 L 478.8,82.9 L 478.8,82.0 L 482.2,80.9 L 485.2,81.2 L 488.6,82.7 L 489.7,84.7 L 491.6,84.4 L 493.6,88.8 L 494.4,86.9 L 497.7,85.9 L 498.4,87.7 L 502.4,88.8 L 502.5,90.6 L 504.5,91.9 L 508.5,90.9 L 510.8,88.9 L 514.1,87.5 L 515.4,90.3 L 517.6,89.6 L 520.4,90.1 L 523.5,89.4 L 527.3,91.7 L 530.7,91.0 L 530.4,92.1 L 526.1,94.9 L 520.0,97.2 L 516.1,99.5 L 510.5,104.9 L 508.1,108.2 L 504.4,111.9 L 498.5,116.9 L 499.6,118.5 Z",
+  28: "M 566.6,349.1 L 570.9,348.8 L 572.7,350.7 L 572.2,372.8 L 571.5,411.0 L 575.2,441.3 L 573.4,442.3 L 569.2,442.2 L 567.5,441.0 L 563.4,442.2 L 557.9,444.9 L 556.2,446.4 L 554.0,444.5 L 553.1,441.2 L 550.0,437.1 L 551.3,430.4 L 519.2,432.2 L 520.4,430.7 L 519.0,426.9 L 521.0,426.6 L 520.9,419.2 L 522.6,419.6 L 523.4,415.1 L 527.2,412.0 L 529.0,407.3 L 528.3,401.4 L 525.7,399.1 L 525.7,395.0 L 526.8,394.1 L 525.2,391.8 L 526.3,389.0 L 525.2,384.9 L 526.5,383.2 L 523.5,380.7 L 525.8,374.5 L 528.6,371.1 L 527.5,369.0 L 530.7,365.5 L 530.6,364.2 L 533.4,363.0 L 532.9,359.0 L 534.6,358.0 L 535.5,354.6 L 538.0,352.9 L 536.9,351.2 L 566.6,349.1 Z",
+  29: "M 507.4,239.9 L 509.0,239.8 L 512.2,243.7 L 513.9,244.3 L 512.7,247.2 L 513.1,251.2 L 515.2,257.3 L 520.2,262.2 L 525.5,266.2 L 526.8,272.7 L 528.1,273.9 L 529.7,271.9 L 533.1,272.6 L 535.4,273.9 L 534.0,276.4 L 534.6,278.2 L 532.3,283.5 L 532.4,286.7 L 537.2,290.5 L 539.1,293.0 L 540.7,292.5 L 546.0,296.4 L 546.2,299.5 L 547.8,303.3 L 546.6,304.7 L 550.5,310.1 L 553.0,310.2 L 552.3,318.4 L 549.9,317.7 L 549.2,320.2 L 548.2,320.3 L 547.3,320.4 L 547.7,325.3 L 544.9,330.6 L 534.7,331.2 L 537.0,327.3 L 539.3,324.8 L 537.6,321.0 L 469.3,323.5 L 467.0,323.6 L 466.9,313.6 L 466.3,270.3 L 463.1,269.3 L 460.6,264.6 L 458.6,262.7 L 462.0,256.8 L 457.1,255.3 L 455.6,253.5 L 451.8,248.2 L 448.6,241.7 L 465.6,241.9 L 486.2,241.3 L 507.4,239.9 Z",
+  30: "M 339.0,69.9 L 337.2,92.3 L 333.9,130.1 L 332.4,148.8 L 332.1,148.8 L 306.2,146.2 L 262.1,140.9 L 234.7,136.8 L 233.1,147.2 L 230.9,144.7 L 229.3,140.9 L 225.4,144.5 L 222.5,144.7 L 222.0,143.5 L 218.5,143.8 L 216.8,142.6 L 213.3,143.7 L 208.9,142.8 L 207.2,144.4 L 205.8,143.0 L 205.1,136.4 L 202.2,135.6 L 200.9,133.7 L 201.7,130.0 L 200.3,128.3 L 198.8,123.9 L 198.2,119.9 L 198.8,118.4 L 196.7,116.0 L 195.0,117.9 L 191.1,119.9 L 188.6,117.3 L 189.7,115.3 L 189.1,113.0 L 192.0,111.4 L 191.2,108.1 L 192.4,103.6 L 195.8,96.8 L 191.8,96.1 L 192.0,94.8 L 188.8,92.1 L 188.7,89.8 L 184.8,83.6 L 184.8,82.2 L 182.2,80.8 L 180.2,77.9 L 181.2,72.6 L 178.1,66.3 L 182.3,46.6 L 241.3,57.9 L 268.1,61.9 L 339.0,69.9 Z",
+  31: "M 339.3,189.3 L 363.8,191.1 L 409.0,193.0 L 409.4,194.0 L 416.8,197.8 L 418.6,195.9 L 420.6,196.3 L 427.5,196.4 L 435.1,200.2 L 436.0,203.1 L 438.6,203.7 L 441.2,212.7 L 443.2,214.0 L 444.2,217.5 L 443.3,219.9 L 443.7,222.6 L 446.3,224.4 L 446.2,229.4 L 447.7,233.9 L 446.9,239.1 L 448.6,241.7 L 451.8,248.2 L 455.6,253.5 L 356.1,250.7 L 353.8,250.6 L 355.1,230.5 L 325.5,228.3 L 328.8,188.4 L 339.3,189.3 Z",
+  32: "M 139.2,179.4 L 182.0,188.5 L 163.0,286.9 L 160.0,302.7 L 157.7,305.8 L 156.2,305.6 L 154.7,302.8 L 148.9,302.5 L 147.5,314.2 L 148.1,318.2 L 147.7,321.9 L 146.2,324.4 L 131.0,301.5 L 122.5,288.7 L 110.9,271.4 L 96.6,249.8 L 81.8,227.5 L 88.2,202.9 L 96.8,169.3 L 115.3,174.1 L 139.2,179.4 Z",
+  33: "M 789.4,102.1 L 793.4,114.4 L 801.1,139.4 L 803.9,141.1 L 804.2,143.0 L 806.2,143.9 L 805.6,148.0 L 804.1,148.0 L 800.9,150.9 L 799.8,153.1 L 783.4,156.7 L 781.8,155.6 L 781.2,152.7 L 782.1,151.3 L 781.3,148.6 L 780.3,140.1 L 781.8,135.7 L 781.9,131.0 L 782.7,129.1 L 781.4,124.4 L 785.5,121.4 L 786.9,117.6 L 784.8,114.7 L 785.8,111.1 L 785.1,109.2 L 785.8,103.8 L 789.0,103.5 L 789.4,102.1 Z",
+  34: "M 765.5,193.8 L 771.0,195.5 L 770.5,201.5 L 768.5,203.4 L 767.9,206.7 L 772.2,207.2 L 773.1,209.4 L 773.8,220.3 L 771.0,229.2 L 768.5,232.1 L 766.9,237.7 L 764.8,234.8 L 760.1,234.1 L 753.9,231.0 L 752.9,228.2 L 752.7,227.8 L 753.3,226.5 L 754.2,223.8 L 757.8,221.4 L 757.7,219.8 L 761.5,215.6 L 761.8,213.7 L 756.7,210.7 L 756.0,208.2 L 754.1,208.0 L 753.4,205.8 L 754.9,201.9 L 753.2,200.1 L 755.9,195.2 L 756.3,192.9 L 757.8,191.1 L 765.5,193.8 Z",
+  35: "M 266.0,303.0 L 274.6,304.1 L 314.2,308.1 L 335.1,309.7 L 334.4,319.7 L 333.8,319.6 L 330.0,369.3 L 328.1,389.5 L 326.7,409.5 L 267.4,404.0 L 266.7,405.9 L 268.4,408.4 L 240.3,405.0 L 239.1,414.0 L 225.1,412.1 L 240.7,299.7 L 266.0,303.0 Z",
+  36: "M 760.1,115.6 L 761.2,119.5 L 761.4,123.3 L 763.5,126.5 L 764.0,130.3 L 763.4,134.6 L 765.9,139.7 L 765.5,141.4 L 768.5,144.1 L 771.3,157.6 L 771.9,159.3 L 771.5,172.9 L 772.0,173.5 L 774.6,188.5 L 776.1,189.8 L 773.0,192.8 L 774.6,194.8 L 781.1,194.9 L 782.1,193.4 L 787.4,192.1 L 790.0,190.8 L 793.6,186.6 L 794.5,188.8 L 797.0,189.1 L 792.5,193.4 L 782.3,200.4 L 777.8,202.4 L 774.7,202.9 L 772.6,204.4 L 770.5,201.5 L 771.0,195.5 L 765.5,193.8 L 757.8,191.1 L 756.9,189.8 L 754.7,190.2 L 751.3,187.5 L 751.0,184.5 L 748.7,182.7 L 747.7,183.0 L 745.5,180.7 L 682.1,193.1 L 681.3,188.2 L 681.2,187.8 L 689.0,180.7 L 690.0,177.7 L 692.4,175.4 L 690.7,172.2 L 689.5,171.8 L 687.6,166.6 L 695.5,162.8 L 702.9,161.5 L 705.9,161.5 L 709.5,163.0 L 711.4,161.8 L 717.5,160.6 L 720.9,158.5 L 724.1,154.1 L 726.6,153.5 L 725.6,148.1 L 726.2,144.8 L 722.6,143.3 L 722.8,140.7 L 727.7,136.2 L 729.1,132.9 L 734.3,124.9 L 739.8,120.2 L 749.2,118.6 L 760.1,115.6 Z",
+  37: "M 681.7,303.8 L 692.4,302.4 L 704.7,300.4 L 761.2,289.1 L 764.7,296.6 L 760.2,296.8 L 759.8,297.9 L 754.7,300.2 L 754.2,301.4 L 750.7,302.5 L 751.2,303.8 L 755.3,302.0 L 756.1,302.7 L 760.6,300.7 L 762.5,302.2 L 765.1,300.9 L 767.2,305.4 L 766.7,307.8 L 764.9,308.5 L 762.0,314.1 L 756.8,315.5 L 756.6,319.0 L 759.5,321.8 L 761.5,322.1 L 759.2,328.3 L 756.2,328.2 L 751.3,329.8 L 748.1,331.7 L 743.3,336.6 L 739.9,342.4 L 738.8,349.1 L 735.2,348.3 L 729.6,350.7 L 708.1,335.2 L 690.1,337.8 L 690.0,335.5 L 687.0,332.5 L 685.5,334.0 L 685.1,332.0 L 665.3,334.0 L 661.1,335.3 L 657.9,337.7 L 652.6,339.7 L 644.5,341.2 L 633.3,342.5 L 633.1,337.7 L 636.2,336.9 L 637.0,333.5 L 640.6,330.0 L 644.9,329.4 L 648.4,325.8 L 652.3,324.2 L 655.2,319.2 L 657.2,317.6 L 657.9,319.5 L 663.5,314.8 L 666.5,315.1 L 667.9,311.1 L 670.7,309.7 L 670.7,305.0 L 681.7,303.8 Z",
+  38: "M 428.9,74.3 L 430.6,80.6 L 429.7,83.2 L 430.0,91.2 L 431.0,95.0 L 433.6,101.7 L 433.9,114.4 L 434.4,115.3 L 434.1,120.6 L 435.2,124.9 L 436.9,127.0 L 437.4,135.0 L 333.9,130.1 L 337.2,92.3 L 339.0,69.9 L 428.9,74.3 Z",
+  39: "M 671.3,195.4 L 675.6,221.9 L 673.6,223.4 L 675.0,225.4 L 675.4,228.4 L 674.2,233.5 L 674.0,241.0 L 669.2,248.3 L 667.4,249.5 L 665.5,248.5 L 664.3,251.6 L 662.5,251.7 L 661.2,255.8 L 661.9,258.0 L 660.6,260.1 L 657.9,257.4 L 655.8,262.6 L 657.0,265.5 L 655.3,266.9 L 655.1,269.6 L 651.2,270.6 L 648.7,268.2 L 646.9,267.9 L 645.7,264.6 L 643.7,265.5 L 642.3,267.7 L 636.3,267.0 L 634.1,268.7 L 630.3,266.4 L 625.4,266.3 L 625.0,264.5 L 621.4,260.8 L 615.6,261.5 L 612.5,233.6 L 609.6,209.9 L 629.3,206.6 L 635.4,208.6 L 637.5,209.9 L 638.7,208.2 L 642.4,210.9 L 644.5,211.6 L 651.0,208.0 L 655.0,208.0 L 658.8,203.6 L 664.5,199.1 L 671.3,195.4 Z",
+  40: "M 380.9,312.4 L 466.9,313.6 L 467.0,323.6 L 470.3,345.7 L 470.0,381.0 L 463.7,378.9 L 462.0,376.6 L 457.8,374.6 L 456.8,376.4 L 452.5,376.3 L 451.6,375.2 L 447.8,377.2 L 446.2,376.1 L 442.7,377.1 L 439.4,380.2 L 438.2,378.4 L 434.8,377.0 L 431.2,376.9 L 430.0,374.6 L 425.9,379.1 L 424.5,376.5 L 422.6,377.3 L 421.2,375.6 L 417.4,374.0 L 414.5,376.6 L 413.3,373.8 L 411.0,373.4 L 409.7,371.2 L 406.6,370.3 L 404.5,372.1 L 403.2,370.4 L 399.9,370.5 L 396.4,368.7 L 393.1,368.8 L 392.1,364.9 L 386.9,364.5 L 384.9,365.1 L 381.4,361.1 L 380.2,361.3 L 381.8,322.4 L 353.2,320.9 L 334.4,319.7 L 335.1,309.7 L 350.2,310.8 L 380.9,312.4 Z",
+  41: "M 74.9,76.8 L 76.2,77.0 L 78.5,79.8 L 79.0,82.5 L 78.0,88.4 L 84.3,92.5 L 91.0,91.1 L 94.8,91.8 L 98.8,94.0 L 98.9,95.4 L 106.9,94.6 L 108.5,96.0 L 112.6,96.5 L 116.4,95.5 L 122.7,95.3 L 128.2,96.2 L 130.3,95.4 L 158.1,102.1 L 159.3,105.8 L 162.2,107.9 L 162.7,110.8 L 158.6,115.9 L 157.0,119.1 L 154.9,121.1 L 154.7,123.0 L 152.7,125.5 L 151.1,125.8 L 146.7,132.1 L 147.1,135.0 L 149.7,135.9 L 150.5,137.8 L 147.2,143.8 L 139.2,179.4 L 115.3,174.1 L 96.8,169.3 L 82.1,165.4 L 63.2,159.9 L 51.1,156.5 L 37.3,152.5 L 36.0,149.6 L 36.8,143.1 L 38.4,138.9 L 37.5,135.0 L 39.9,132.3 L 42.4,127.4 L 46.1,122.6 L 48.5,118.1 L 54.9,102.3 L 55.4,100.1 L 58.9,93.4 L 62.3,83.8 L 63.2,78.1 L 64.9,75.1 L 71.0,73.9 L 72.7,76.7 L 74.9,76.8 Z",
+  42: "M 681.3,188.2 L 682.1,193.1 L 745.5,180.7 L 747.7,183.0 L 748.7,182.7 L 751.0,184.5 L 751.3,187.5 L 754.7,190.2 L 756.9,189.8 L 757.8,191.1 L 756.3,192.9 L 755.9,195.2 L 753.2,200.1 L 754.9,201.9 L 753.4,205.8 L 754.1,208.0 L 756.0,208.2 L 756.7,210.7 L 761.8,213.7 L 761.5,215.6 L 757.7,219.8 L 757.8,221.4 L 754.2,223.8 L 751.1,224.0 L 749.0,226.7 L 694.1,237.4 L 678.6,240.0 L 675.6,221.9 L 671.3,195.4 L 673.8,193.9 L 681.2,187.8 L 681.3,188.2 Z",
+  44: "M 800.0,167.2 L 802.1,166.6 L 804.1,171.0 L 805.9,171.9 L 804.1,172.1 L 803.4,175.3 L 804.0,179.5 L 798.8,181.9 L 799.2,179.8 L 796.2,168.4 L 800.0,167.2 Z",
+  45: "M 657.9,337.7 L 661.1,335.3 L 665.3,334.0 L 685.1,332.0 L 685.5,334.0 L 687.0,332.5 L 690.0,335.5 L 690.1,337.8 L 708.1,335.2 L 729.6,350.7 L 727.0,352.2 L 724.0,356.1 L 721.5,361.8 L 721.6,366.0 L 719.4,369.7 L 715.7,370.3 L 715.3,372.9 L 711.9,376.1 L 710.3,379.3 L 707.0,381.0 L 703.9,384.7 L 703.7,386.1 L 700.6,388.3 L 697.5,393.1 L 693.4,392.0 L 692.8,388.7 L 689.4,383.8 L 686.9,382.7 L 686.1,378.5 L 684.5,375.5 L 679.6,373.1 L 676.2,369.8 L 676.1,367.5 L 671.2,364.8 L 668.5,361.4 L 664.4,359.5 L 661.3,355.7 L 660.4,353.5 L 657.4,349.5 L 655.7,350.1 L 649.8,346.6 L 649.8,344.5 L 652.6,339.7 L 657.9,337.7 Z",
+  46: "M 333.9,130.1 L 437.4,135.0 L 437.0,137.2 L 433.2,141.5 L 435.6,145.3 L 438.8,147.6 L 438.6,183.4 L 436.8,183.8 L 437.5,185.5 L 437.0,189.0 L 438.8,191.0 L 437.7,192.4 L 437.2,196.3 L 435.9,199.3 L 438.6,203.7 L 436.0,203.1 L 435.1,200.2 L 427.5,196.4 L 420.6,196.3 L 418.6,195.9 L 416.8,197.8 L 409.4,194.0 L 409.0,193.0 L 363.8,191.1 L 339.3,189.3 L 328.8,188.4 L 332.1,148.8 L 332.4,148.8 L 333.9,130.1 Z",
+  47: "M 570.7,318.6 L 570.2,315.0 L 573.7,315.6 L 593.5,313.3 L 610.9,312.2 L 614.0,311.7 L 625.8,311.0 L 639.2,309.5 L 639.4,309.1 L 670.7,305.0 L 670.7,309.7 L 667.9,311.1 L 666.5,315.1 L 663.5,314.8 L 657.9,319.5 L 657.2,317.6 L 655.2,319.2 L 652.3,324.2 L 648.4,325.8 L 644.9,329.4 L 640.6,330.0 L 637.0,333.5 L 636.2,336.9 L 633.1,337.7 L 633.3,342.5 L 612.6,345.0 L 584.4,347.5 L 570.9,348.8 L 566.6,349.1 L 536.9,351.2 L 538.5,350.6 L 539.8,347.0 L 539.3,342.1 L 542.1,338.7 L 542.4,335.6 L 544.7,334.3 L 544.9,330.6 L 547.7,325.3 L 547.3,320.4 L 548.2,320.3 L 549.2,320.2 L 551.1,319.9 L 570.7,318.6 Z",
+  48: "M 353.2,320.9 L 381.8,322.4 L 380.2,361.3 L 381.4,361.1 L 384.9,365.1 L 386.9,364.5 L 392.1,364.9 L 393.1,368.8 L 396.4,368.7 L 399.9,370.5 L 403.2,370.4 L 404.5,372.1 L 406.6,370.3 L 409.7,371.2 L 411.0,373.4 L 413.3,373.8 L 414.5,376.6 L 417.4,374.0 L 421.2,375.6 L 422.6,377.3 L 424.5,376.5 L 425.9,379.1 L 430.0,374.6 L 431.2,376.9 L 434.8,377.0 L 438.2,378.4 L 439.4,380.2 L 442.7,377.1 L 446.2,376.1 L 447.8,377.2 L 451.6,375.2 L 452.5,376.3 L 456.8,376.4 L 457.8,374.6 L 462.0,376.6 L 463.7,378.9 L 470.0,381.0 L 471.8,382.8 L 475.0,381.8 L 477.3,382.6 L 477.6,393.2 L 478.0,413.7 L 481.8,418.0 L 482.0,422.3 L 486.8,430.3 L 487.2,434.6 L 485.5,439.7 L 483.9,441.9 L 484.5,444.6 L 483.4,446.7 L 484.8,450.5 L 480.9,457.6 L 482.4,459.6 L 479.6,459.7 L 470.7,462.6 L 467.4,461.1 L 466.8,457.9 L 464.6,460.2 L 463.0,459.7 L 462.1,462.5 L 463.9,463.7 L 464.3,467.4 L 461.1,471.3 L 455.9,476.3 L 445.4,481.5 L 444.3,480.7 L 441.2,482.0 L 441.1,480.8 L 436.8,481.6 L 434.8,479.1 L 433.5,479.6 L 438.1,484.8 L 434.7,486.4 L 431.5,485.4 L 431.0,489.0 L 427.1,492.6 L 422.9,499.4 L 420.2,506.5 L 418.3,505.9 L 417.7,508.5 L 419.8,507.9 L 418.7,513.1 L 417.4,513.3 L 417.2,516.2 L 418.9,517.8 L 419.3,523.8 L 421.2,525.9 L 421.6,529.7 L 423.2,533.0 L 417.6,535.0 L 415.4,532.4 L 411.1,531.3 L 405.5,531.4 L 400.8,528.1 L 397.1,527.6 L 394.5,525.0 L 390.7,524.0 L 388.3,521.4 L 386.8,515.4 L 383.7,511.7 L 384.2,508.7 L 382.9,505.4 L 383.5,502.6 L 381.4,499.4 L 379.5,499.0 L 376.6,496.1 L 375.8,492.5 L 373.4,489.1 L 369.7,486.2 L 368.2,480.2 L 366.5,478.5 L 364.5,473.6 L 363.9,469.6 L 361.9,466.7 L 358.3,464.0 L 357.5,462.2 L 354.2,460.5 L 351.8,456.0 L 344.3,454.6 L 339.8,454.5 L 336.0,452.7 L 335.0,454.8 L 330.8,455.1 L 327.4,459.0 L 325.1,465.5 L 324.0,465.5 L 321.3,469.3 L 318.5,469.2 L 314.5,465.8 L 304.2,460.0 L 302.3,457.3 L 298.4,454.4 L 296.0,448.5 L 296.2,443.4 L 293.7,439.0 L 293.4,435.3 L 291.8,432.9 L 285.5,428.9 L 282.4,423.9 L 279.7,422.0 L 277.1,417.8 L 273.1,415.3 L 270.7,409.7 L 268.4,408.4 L 266.7,405.9 L 267.4,404.0 L 326.7,409.5 L 328.1,389.5 L 330.0,369.3 L 333.8,319.6 L 334.4,319.7 L 353.2,320.9 Z",
+  49: "M 209.1,193.4 L 225.3,196.0 L 222.2,215.8 L 251.6,220.2 L 246.4,257.4 L 243.9,274.3 L 243.9,276.5 L 240.7,299.7 L 218.0,296.3 L 163.0,286.9 L 182.0,188.5 L 209.1,193.4 Z",
+  50: "M 785.1,109.2 L 785.8,111.1 L 784.8,114.7 L 786.9,117.6 L 785.5,121.4 L 781.4,124.4 L 782.7,129.1 L 781.9,131.0 L 781.8,135.7 L 780.3,140.1 L 781.3,148.6 L 782.1,151.3 L 781.2,152.7 L 781.8,155.6 L 783.4,156.7 L 771.9,159.3 L 771.3,157.6 L 768.5,144.1 L 765.5,141.4 L 765.9,139.7 L 763.4,134.6 L 764.0,130.3 L 763.5,126.5 L 761.4,123.3 L 761.2,119.5 L 760.1,115.6 L 774.3,112.3 L 785.1,109.2 Z",
+  51: "M 711.9,239.4 L 721.0,244.5 L 721.9,240.4 L 724.2,240.3 L 726.2,241.6 L 726.8,244.5 L 730.1,244.9 L 732.4,246.3 L 734.1,248.9 L 733.4,252.3 L 731.8,253.5 L 731.2,256.5 L 732.3,258.4 L 736.2,257.0 L 737.6,259.9 L 743.2,260.1 L 745.2,262.3 L 750.0,264.1 L 749.2,270.0 L 751.9,273.9 L 750.2,276.4 L 750.5,278.9 L 752.7,280.0 L 751.1,282.9 L 747.3,280.4 L 746.7,281.6 L 750.0,283.3 L 757.7,282.3 L 761.2,289.1 L 704.7,300.4 L 692.4,302.4 L 681.7,303.8 L 670.7,305.0 L 639.4,309.1 L 647.5,305.2 L 648.2,302.9 L 651.1,301.7 L 651.0,299.9 L 653.1,298.3 L 652.9,296.8 L 658.2,293.0 L 663.3,286.8 L 663.3,288.5 L 665.9,291.5 L 668.8,292.8 L 670.8,292.4 L 673.3,289.3 L 675.8,291.0 L 679.6,289.3 L 686.0,284.4 L 686.8,285.5 L 689.2,283.3 L 688.7,279.7 L 689.8,276.3 L 692.2,272.9 L 692.7,269.1 L 695.1,264.9 L 695.5,260.1 L 698.5,262.4 L 701.2,262.8 L 702.5,260.9 L 704.4,253.3 L 706.7,254.7 L 712.2,245.4 L 711.9,239.4 Z",
+  53: "M 169.6,43.8 L 164.1,67.5 L 158.4,93.3 L 157.8,94.9 L 158.8,98.7 L 158.1,102.1 L 130.3,95.4 L 128.2,96.2 L 122.7,95.3 L 116.4,95.5 L 112.6,96.5 L 108.5,96.0 L 106.9,94.6 L 98.9,95.4 L 98.8,94.0 L 94.8,91.8 L 91.0,91.1 L 84.3,92.5 L 78.0,88.4 L 79.0,82.5 L 78.5,79.8 L 76.2,77.0 L 74.9,76.8 L 72.7,76.7 L 71.0,73.9 L 68.8,72.4 L 66.5,73.0 L 64.5,70.6 L 65.8,68.1 L 67.9,67.3 L 66.5,62.5 L 67.8,51.7 L 67.2,50.1 L 68.0,42.4 L 66.3,38.8 L 67.0,32.9 L 69.6,29.6 L 71.6,32.2 L 76.1,36.2 L 79.7,37.1 L 83.0,39.1 L 86.7,39.2 L 87.8,41.3 L 90.9,42.1 L 91.8,46.9 L 93.4,47.0 L 92.1,52.7 L 91.6,58.1 L 93.0,57.9 L 93.0,53.2 L 94.6,49.0 L 97.9,45.3 L 96.7,43.0 L 97.5,39.9 L 97.2,36.1 L 98.5,33.8 L 98.5,30.6 L 96.6,29.6 L 95.4,26.9 L 96.4,25.0 L 169.6,43.8 Z",
+  54: "M 675.6,221.9 L 678.6,240.0 L 694.1,237.4 L 695.8,247.6 L 698.4,245.2 L 700.8,241.4 L 702.8,241.7 L 705.3,238.2 L 709.9,238.8 L 710.1,236.5 L 712.6,236.2 L 713.7,234.4 L 716.6,235.7 L 719.1,235.3 L 721.9,240.4 L 721.0,244.5 L 711.9,239.4 L 712.2,245.4 L 706.7,254.7 L 704.4,253.3 L 702.5,260.9 L 701.2,262.8 L 698.5,262.4 L 695.5,260.1 L 695.1,264.9 L 692.7,269.1 L 692.2,272.9 L 689.8,276.3 L 688.7,279.7 L 689.2,283.3 L 686.8,285.5 L 686.0,284.4 L 679.6,289.3 L 675.8,291.0 L 673.3,289.3 L 670.8,292.4 L 668.8,292.8 L 665.9,291.5 L 663.3,288.5 L 663.3,286.8 L 661.3,286.8 L 658.0,284.9 L 656.9,282.8 L 654.0,280.2 L 651.6,276.6 L 651.2,270.6 L 655.1,269.6 L 655.3,266.9 L 657.0,265.5 L 655.8,262.6 L 657.9,257.4 L 660.6,260.1 L 661.9,258.0 L 661.2,255.8 L 662.5,251.7 L 664.3,251.6 L 665.5,248.5 L 667.4,249.5 L 669.2,248.3 L 674.0,241.0 L 674.2,233.5 L 675.4,228.4 L 675.0,225.4 L 673.6,223.4 L 675.6,221.9 Z",
+  55: "M 521.6,120.1 L 524.3,121.2 L 526.0,124.4 L 540.4,127.5 L 546.5,130.0 L 548.3,129.2 L 554.3,130.7 L 556.1,133.0 L 559.2,135.2 L 559.3,138.6 L 558.3,141.5 L 561.6,141.6 L 560.5,144.6 L 562.9,146.4 L 562.5,148.9 L 559.9,149.5 L 558.0,154.3 L 557.4,157.5 L 559.1,157.9 L 561.0,155.7 L 563.0,151.6 L 565.8,149.8 L 567.6,144.6 L 570.4,143.2 L 570.4,145.8 L 568.7,148.4 L 565.5,157.0 L 564.8,161.7 L 565.2,165.0 L 563.8,166.2 L 562.9,170.7 L 563.7,174.5 L 562.7,177.1 L 561.5,183.5 L 562.3,188.4 L 564.4,192.6 L 564.4,198.4 L 550.0,199.6 L 523.1,201.0 L 521.9,198.6 L 516.7,196.6 L 515.4,193.4 L 514.7,189.0 L 516.3,186.5 L 514.1,184.6 L 513.8,181.7 L 512.9,179.4 L 513.1,176.2 L 510.2,172.0 L 507.9,171.4 L 503.7,168.2 L 502.8,165.6 L 498.4,163.6 L 496.9,161.4 L 493.9,161.2 L 490.1,157.8 L 490.8,150.4 L 490.4,147.1 L 491.9,144.0 L 490.1,141.5 L 488.5,141.3 L 488.6,138.5 L 491.6,134.2 L 495.5,132.4 L 496.3,131.2 L 495.8,119.4 L 498.5,117.7 L 499.6,118.5 L 502.7,118.6 L 512.0,114.8 L 515.4,112.8 L 516.7,114.1 L 515.0,116.8 L 519.7,119.9 L 521.6,120.1 Z",
+  56: "M 262.1,140.9 L 306.2,146.2 L 332.1,148.8 L 328.8,188.4 L 325.5,228.3 L 300.6,226.1 L 268.2,222.3 L 251.6,220.2 L 222.2,215.8 L 225.3,196.0 L 233.1,147.2 L 234.7,136.8 L 262.1,140.9 Z",
+};
+
+const STATE_ABBR = {
+  1:"AL",2:"AK",4:"AZ",5:"AR",6:"CA",8:"CO",9:"CT",10:"DE",11:"DC",
+  12:"FL",13:"GA",15:"HI",16:"ID",17:"IL",18:"IN",19:"IA",20:"KS",
+  21:"KY",22:"LA",23:"ME",24:"MD",25:"MA",26:"MI",27:"MN",28:"MS",
+  29:"MO",30:"MT",31:"NE",32:"NV",33:"NH",34:"NJ",35:"NM",36:"NY",
+  37:"NC",38:"ND",39:"OH",40:"OK",41:"OR",42:"PA",44:"RI",45:"SC",
+  46:"SD",47:"TN",48:"TX",49:"UT",50:"VT",51:"VA",53:"WA",54:"WV",
+  55:"WI",56:"WY"
+};
+
+function posColor(val) {
+  // log scale 0.001 to 800
+  if (!val || val <= 0) return 'var(--zero)';
+  const logMin = Math.log10(0.02), logMax = Math.log10(800);
+  const t = Math.min(1, Math.max(0, (Math.log10(val) - logMin) / (logMax - logMin)));
+  const stops = [[240,217,140],[214,166,94],[125,163,147],[33,89,78]];
+  const position = t * (stops.length - 1);
+  const i = Math.min(Math.floor(position), stops.length - 2);
+  const fraction = position - i;
+  const channels = stops[i].map((start, channel) => Math.round(start + fraction * (stops[i + 1][channel] - start)));
+  return `rgb(${channels.join(',')})`;
+}
+
+function drawMap(year) {
+  const svg = document.getElementById('us-map-svg');
+  let html = '';
+  Object.keys(STATE_PATHS).forEach(fips => {
+    const f = parseInt(fips);
+    const data = ALL_YEARS[f] && ALL_YEARS[f][year];
+    let fill, status, val;
+    if (data) {
+      status = data.status;
+      val = data.val;
+    } else {
+      // Check FY24 for static states
+      const fy24row = FY24.find(d => d.fips === f);
+      status = fy24row ? fy24row.status : 'missing';
+      val = fy24row ? fy24row.C08 : null;
+    }
+    if (status === 'positive' && val > 0) fill = posColor(val);
+    else if (status === 'zero') fill = 'var(--zero)';
+    else fill = 'var(--missing)';
+    const abbr = STATE_ABBR[f] || '';
+    html += `<path class="state-path" data-fips="${f}" d="${STATE_PATHS[f]}" fill="${fill}" stroke="var(--bg)" stroke-width="1.5"
+      onmouseenter="showTip(event,${f},${year})" onmouseleave="hideTip()"/>`;
+  });
+  html += `<text x="103" y="392" text-anchor="middle" font-size="11" fill="var(--text-muted)">Alaska</text>`;
+  html += `<text x="262" y="449" text-anchor="middle" font-size="11" fill="var(--text-muted)">Hawaii</text>`;
+  svg.innerHTML = html;
+}
+
+const tooltip = document.getElementById('tooltip');
+const ttName = document.getElementById('tt-name');
+const ttVal = document.getElementById('tt-val');
+const ttStatus = document.getElementById('tt-status');
+
+function showTip(e, fips, year) {
+  const data = ALL_YEARS[fips] && ALL_YEARS[fips][year];
+  const fy24row = FY24.find(d => d.fips === fips);
+  const state = data ? data.state : (fy24row ? fy24row.state : '');
+  const status = data ? data.status : (fy24row ? fy24row.status : 'missing');
+  const val = data ? data.val : null;
+  ttName.textContent = state + ' (' + year + ')';
+  ttVal.textContent = status === 'positive' && val > 0 ? `$${val.toFixed(3)}M` :
+    status === 'zero' ? '$0 reported' : 'No data (missing)';
+  ttStatus.textContent = status === 'positive' ? 'Positive gifted aid reported' : status === 'zero' ? 'Reported zero' : 'All records missing';
+  tooltip.style.display = 'block';
+  tooltip.style.left = (e.clientX + 12) + 'px';
+  tooltip.style.top = (e.clientY - 10) + 'px';
+}
+function hideTip() { tooltip.style.display = 'none'; }
+
+document.getElementById('year-slider').addEventListener('input', function() {
+  const yr = parseInt(this.value);
+  document.getElementById('map-year-label').textContent = yr;
+  drawMap(yr);
+});
+
+// ======== SPARKLINES ========
+function buildSparklines() {
+  const grid = document.getElementById('sparkline-grid');
+  const sorted = Object.keys(TRAJECTORIES).sort((a,b) => {
+    const aMax = Math.max(...TRAJECTORIES[a].filter(v => v !== null));
+    const bMax = Math.max(...TRAJECTORIES[b].filter(v => v !== null));
+    return bMax - aMax;
+  });
+  let html = '';
+  sorted.forEach(name => {
+    const vals = TRAJECTORIES[name];
+    const latest = vals[10];
+    const first = vals.find(v => v !== null && v > 0);
+    const maxV = Math.max(...vals.filter(v => v !== null));
+    const minV = 0;
+    const range = maxV - minV || 1;
+    const W = 200, H = 48, pad = 4;
+    let sparkHtml = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:${H}px;">`;
+    // Build segments, skipping nulls
+    let pathD = '';
+    vals.forEach((v, i) => {
+      if (v === null) return;
+      const x = pad + (i / 10) * (W - 2*pad);
+      const y = (H - pad) - ((v - minV) / range) * (H - 2*pad);
+      if (pathD === '') pathD = `M ${x} ${y}`;
+      else {
+        // Check if previous was null
+        const prev = vals[i-1];
+        if (prev === null) pathD += ` M ${x} ${y}`;
+        else pathD += ` L ${x} ${y}`;
+      }
+    });
+    sparkHtml += `<path d="${pathD}" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round"/>`;
+    // Last point dot
+    if (latest !== null) {
+      const x = pad + (W - 2*pad);
+      const y = (H - pad) - ((latest - minV) / range) * (H - 2*pad);
+      sparkHtml += `<circle cx="${x}" cy="${y}" r="3" fill="var(--gold)"/>`;
+    }
+    sparkHtml += `</svg>`;
+    const changeStr = (latest !== null && first !== null && first > 0)
+      ? `${((latest/first - 1)*100).toFixed(0)}% since first positive year`
+      : latest === 10.558 ? 'New in FY2024'
+      : latest === 0 ? 'Dropped to zero' : '';
+    html += `<div class="sparkline-cell">
+      <div class="sc-name">${name}</div>
+      <div class="sc-latest">${latest !== null && latest > 0 ? '$' + (latest >= 1 ? latest.toFixed(1) + 'M' : (latest*1000).toFixed(0) + 'K') : latest === 0 ? '$0' : '—'}</div>
+      <div class="sc-change">${changeStr}</div>
+      ${sparkHtml}
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+// ======== COVERAGE BARS ========
+function buildCoverage() {
+  const wrap = document.getElementById('coverage-bars');
+  const total = 51;
+  let html = '';
+  COVERAGE.forEach(d => {
+    const pPos = (d.positive / total * 100).toFixed(1);
+    const pZero = (d.zero / total * 100).toFixed(1);
+    const pMiss = (d.missing / total * 100).toFixed(1);
+    html += `<div class="coverage-bar-row">
+      <span class="yr">${d.year}</span>
+      <div class="bar-track">
+        <div class="bar-seg bar-pos" style="width:${pPos}%"></div>
+        <div class="bar-seg bar-zero" style="width:${pZero}%"></div>
+        <div class="bar-seg bar-miss" style="width:${pMiss}%"></div>
+      </div>
+      <span class="bar-val">${d.positive}/51</span>
+    </div>`;
+  });
+  wrap.innerHTML = html;
+
+  // Missing and zero lists
+  const missing = FY24.filter(d => d.status === 'missing').map(d => d.state).sort();
+  const zeros = FY24.filter(d => d.status === 'zero').map(d => d.state).sort();
+  document.getElementById('missing-list').innerHTML = missing.map(s => `<div>${s}</div>`).join('');
+  document.getElementById('zero-list').innerHTML = zeros.map(s => `<div>${s}</div>`).join('');
+}
+
+// ======== INIT ========
+drawTrendChart();
+buildFY24Table();
+buildSparklines();
+buildCoverage();
+window.addEventListener('resize', drawTrendChart);
+
+// Allow typing Enter in lookup to select first match
+document.getElementById('lookup-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const val = this.value.trim();
+    const match = ALL_STATE_NAMES.find(s => s.toLowerCase().startsWith(val.toLowerCase()));
+    if (match) selectState(match);
+  }
+});
+</script>
+</body>
+</html>
+
+
+
+
