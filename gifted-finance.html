@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Supplementary Gifted Education Finance Analysis · Robyn H. Gausman-Burnett</title>
-<meta name="description" content="An interactive supplement to the Center for Educational Progress state gifted-education regulations map, examining separately reported state gifted aid, FY2014–2024.">
+<title>State Gifted-Education Finance · FY2014–2024 · Robyn H. Gausman-Burnett</title>
+<meta name="description" content="An interactive analysis of separately reported state gifted aid and reporting gaps in U.S. Census school-system finance data, FY2014–2024.">
 <meta name="theme-color" content="#173d37">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gifted Education Finance · Supplementary Analysis">
+<meta property="og:title" content="State Gifted-Education Finance · FY2014–2024">
 <meta property="og:description" content="Separately reported state gifted aid, reporting gaps, and state-level trends in U.S. Census F-33 data.">
 <meta property="og:image" content="assets/og-card.svg">
 <meta name="twitter:card" content="summary_large_image">
@@ -74,8 +74,6 @@ nav {
 .nav-monogram { display:inline-grid;place-items:center;width:42px;height:34px;background:#173d37;color:#fffcf6;border-bottom:3px solid var(--gold);font:400 0.82rem 'Brand',Georgia,serif;letter-spacing:-0.12em;padding-right:0.12em; }
 .nav-source a { display:inline-block;color:var(--gold-dim);text-decoration:none;font-weight:600;margin-bottom:0.25rem; }
 .nav-source a:hover { text-decoration:underline; }
-.supplement-note { background:var(--surface2);border-left:3px solid var(--gold);padding:0.9rem 1.1rem;margin:0 0 1.6rem;font-size:0.82rem;color:var(--text-dim);line-height:1.6; }
-.supplement-note strong { color:var(--text); }
 .nav-tabs { display: flex; gap: 0; }
 .nav-tab {
   background: none;
@@ -512,7 +510,7 @@ svg text { font-family: 'Inter', sans-serif; }
     <button class="nav-tab" onclick="showTab('coverage')">Coverage</button>
     <button class="nav-tab" onclick="showTab('lookup')">Your State</button>
   </div>
-  <div class="nav-source"><a href="index.html#projects">← Robyn H. Gausman-Burnett</a><br>U.S. Census Bureau<br>F-33 · supplementary analysis · FY2014–2024</div>
+  <div class="nav-source"><a href="index.html#projects">← Robyn H. Gausman-Burnett</a><br>U.S. Census Bureau<br>F-33 · independent analysis · FY2014–2024</div>
 </nav>
 
 <div class="state-tooltip" id="tooltip">
@@ -525,7 +523,6 @@ svg text { font-family: 'Inter', sans-serif; }
 <section class="section active" id="tab-takeaways">
   <h2 class="section-heading" style="margin-bottom:0.5rem;">What the data show</h2>
   <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1.8rem;">School-system reports of state-source gifted education revenue, aggregated by state · FY2014–2024 · U.S. Census Bureau Annual Survey of School System Finances</p>
-  <div class="supplement-note"><strong>How this relates to my CEP work:</strong> This finance analysis is a supplement for NAGC. It complements my work on the Center for Educational Progress’s State Gifted-Education Regulations map, which remains the primary CEP project.</div>
   <div class="takeaway-grid">
     <div class="takeaway-card">
       <div class="takeaway-num">$1.62B</div>
@@ -634,7 +631,7 @@ svg text { font-family: 'Inter', sans-serif; }
 <section class="section" id="tab-coverage">
   <h2 class="section-heading">Reporting coverage · FY2014–2024</h2>
   <div class="wi-callout">
-    <div class="wi-flag">🏙 Milwaukee, WI — NAGC26 host city</div>
+    <div class="wi-flag">Wisconsin · Reporting coverage</div>
     <strong>Wisconsin has no separately reported gifted aid in any year from 2014 to 2024.</strong>
     <p>All Wisconsin school system records in the Census survey are flagged as missing for state-source gifted revenue every year in this dataset. That doesn't mean Wisconsin provides no gifted services — but it does mean the state has not separately identified gifted funding in a way that appears in this federal finance survey. Wisconsin is one of 12 jurisdictions in this situation in FY2024.</p>
   </div>
@@ -794,7 +791,6 @@ function renderLookup(name) {
       note = `${name} reported positive gifted aid in ${positiveYears.length} of 11 years (${positiveYears.join(', ')}).`;
     }
     // Wisconsin special
-    if (name === 'Wisconsin') note += ' As the host state for NAGC26, Wisconsin\'s missing data is a reminder that most states don\'t separately track gifted funding at the federal level.';
     trendHtml += `<div class="lookup-note">${note}</div>`;
   } else {
     // State not in trajectories (always zero or missing)
